@@ -1,1 +1,86 @@
 @import "tailwindcss";
+
+@theme {
+    --color-pink: #ef2f84;
+    --color-plum: #1a0510;
+    --color-lime: #8fe029;
+    --color-orange: #f5a04a;
+    --font-display: Gloria Hallelujah, cursive;
+    --font-body: Atkinson Hyperlegible Next, sans-serif;
+}
+
+@layer base {
+    body {
+        background-color: var(--color-pink);
+        color: var(--color-plum);
+        font-family: var(--font-body);
+    }
+}
+/*
+  index.css — the one global stylesheet (ROADMAP step 1: START HERE)
+  ==================================================================
+
+  1. PURPOSE
+     Loads Tailwind and defines the site's design tokens (colors, fonts),
+     so every component can use utilities like `bg-pink` and `font-display`.
+     This is the only stylesheet in the project.
+
+  2. WHAT IT RENDERS
+     Nothing by itself. It produces the CSS that every page uses.
+
+  3. PROPS
+     None. It's a stylesheet.
+
+  4. STATE
+     None.
+
+  5. CONCEPTS
+     - @import "tailwindcss" (the line above): pulls in Tailwind. Keep it as
+       the first line; CSS requires @import before other rules.
+     - @theme: Tailwind v4's way to add your own design tokens. A variable
+       named --color-<name> creates `bg-<name>`, `text-<name>`,
+       `border-<name>`, `decoration-<name>` and so on. A variable named
+       --font-<name> creates `font-<name>`. No config file needed.
+     - Design tokens: naming each color once ("pink", "plum") means you can
+       change the exact shade later in one place.
+     - @layer base: where styles for plain HTML elements (like <body>) go,
+       so utilities in your JSX can still override them.
+
+  6. STYLING
+     Tokens to define:
+       colors: pink   #EF2F84  (background, sampled from the sketch)
+               plum   #1A0510  (body text, about 5.0:1 on pink)
+               lime   #8FE029  (exclamation mark, spirals)
+               orange about #F5A04A (square spirals; adjust by eye)
+               (white already exists in Tailwind)
+       fonts:  display  "Gloria Hallelujah", with cursive as the fallback
+               body     "Atkinson Hyperlegible Next", with sans-serif as the
+                        fallback
+     Look up in the Tailwind v4 docs: "Theme variables", "@theme",
+     "Adding custom styles > base styles".
+
+  7. BUILD STEPS
+     1. Below the @import line, add an @theme block with the four color
+        variables listed above.
+     2. Add the two font variables to the same @theme block.
+     3. In index.html (ROADMAP 1.2), add the Google Fonts <link> tags for
+        both fonts, with display=swap so text shows right away in a
+        fallback font while the real one loads.
+     4. Add an @layer base block that gives <body> the pink background, plum
+        text and body font, using the theme variables (var(--color-pink)
+        etc.) or Tailwind's @apply with your new utilities.
+     5. Optional: set a white, clearly visible default focus outline for
+        links and buttons here, so you don't repeat it on every element.
+
+  8. YOUR TURN
+     Write the @theme and base styles yourself from the list above. Copy the
+     hex values exactly; they were sampled and contrast-checked.
+
+  9. DONE WHEN
+     - The whole page background is pink, even past the content's edges.
+     - A test <p className="font-display text-white text-4xl"> in App.tsx
+       shows white handwriting, and <p className="text-lime"> shows lime.
+     - Autocomplete in VS Code suggests `bg-pink`, `text-plum`, etc. (with
+       the Tailwind CSS IntelliSense extension installed).
+     - `npm run build` passes.
+*/
