@@ -22,6 +22,26 @@
        from the eye but keeps it for screen readers and keyboard focus;
        `display: none` would remove it for everyone.
 
+  NEW CONCEPTS (first time in this project)
+     a) State variants: focus: and focus-visible:
+        A prefix applies a class only in that state. `focus:` applies on any
+        focus. `focus-visible:` applies only when the browser would show a
+        focus ring (usually keyboard focus, not a mouse click).
+
+          <button className="bg-white focus:bg-lime focus-visible:outline-2">
+            Save
+          </button>
+
+        Docs: https://tailwindcss.com/docs/hover-focus-and-other-states
+
+     b) sr-only and not-sr-only
+        `sr-only` hides something visually but keeps it for screen readers.
+        `not-sr-only` undoes it, so it's often combined with a state variant.
+
+          <span className="sr-only">Close dialog</span>
+
+        Docs: https://tailwindcss.com/docs/display#screen-reader-only
+
   6. STYLING
      Look up: `sr-only`, `focus:not-sr-only`, `focus:absolute`, `focus:top-2`,
      `focus:left-2`, `focus:z-50`, plus a high-contrast look while shown

@@ -1,6 +1,6 @@
 /*
-  HomePage — "/" (stub in ROADMAP step 4.4, built in step 10.4)
-  =============================================================
+  HomePage — "/" (stub in ROADMAP step 4.4, built in step 7.5)
+  ============================================================
 
   1. PURPOSE
      The landing page from the sketch: headshot in a starburst on the left,
@@ -10,7 +10,7 @@
   2. WHAT IT RENDERS
      - <title>Lily Valentine</title>
      - A two-column area:
-         left:  <StarburstPhoto cute=... serious=... />
+         left:  <StarburstPhoto silly=... serious=... />
          right: <h1>About</h1>, the bio paragraphs, a <Link to="/resume">
                 ("See my resume"), and <SocialLinks links=... />
      - The cartoon Lily image, bottom right (if profile.cartoon exists)
@@ -35,6 +35,30 @@
      - Body text contrast: bio text is plum on pink (about 5:1). White is
        only for large text like the "About" heading.
 
+  NEW CONCEPTS (first time in this project)
+     a) <title> inside a component (needed for the step 4.4 stub)
+        React 19 moves a rendered <title> into the document <head>. It needs
+        a single string, so build mixed text with a template literal.
+
+          function Inbox({ unread }: { unread: number }) {
+            return (
+              <section>
+                <title>{`Inbox (${unread})`}</title>
+                <h1>Inbox</h1>
+              </section>
+            );
+          }
+
+        Docs: https://react.dev/reference/react-dom/components/title
+
+     b) Grid columns in Tailwind (needed in step 7.5)
+        `grid` turns on CSS grid, and `grid-cols-*` sets the number of
+        equal columns. Combined with a responsive prefix:
+
+          <ul className="grid gap-4 sm:grid-cols-3">  one column on phones, three from sm up
+
+        Docs: https://tailwindcss.com/docs/grid-template-columns
+
   6. STYLING
      - Phones: one column, photo first, then text. Desktop: two columns. Look
        up: `grid`, `gap-8`, `md:grid-cols-2`, `md:items-center`.
@@ -47,7 +71,7 @@
 
   7. BUILD STEPS
      1. (Step 4.4) Stub: just <title> and <h1>About</h1>.
-     2. (Step 10.4) Add the grid with StarburstPhoto and the bio.
+     2. (Step 7.5) Add the grid with StarburstPhoto and the bio.
      3. Add the resume link and SocialLinks.
      4. Add the cartoon (once it exists) and the doodles.
      5. Check at 375px, 768px and 1280px against docs/homepage-sketch.jpg.

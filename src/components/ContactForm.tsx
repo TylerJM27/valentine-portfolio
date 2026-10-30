@@ -1,5 +1,5 @@
 /*
-  ContactForm — inquiries form at the bottom of /resume (ROADMAP step 11.2)
+  ContactForm — inquiries form at the bottom of /resume (ROADMAP step 12.2)
   =========================================================================
 
   1. PURPOSE
@@ -46,6 +46,49 @@
        Placeholder text is not a label.
      - Later, to compare: React 19's form actions (`useActionState`) can
        replace much of this state. Learn the controlled version first.
+
+  NEW CONCEPTS (first time in this project)
+     a) A controlled input with a label
+        `value` comes from state, and onChange writes back to it. htmlFor is
+        JSX's name for the label's `for` attribute.
+
+          const [city, setCity] = useState("");
+
+          <label htmlFor="city">City</label>
+          <input id="city" value={city} onChange={(e) => setCity(e.target.value)} />
+
+        Docs: https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable
+
+     b) Updating one field of an object in state
+        Copy the old object with spread (...), then overwrite one field.
+        Never change the state object directly.
+
+          setAddress({ ...address, zip: "90210" });
+
+        Docs: https://react.dev/learn/updating-objects-in-state
+
+     c) Typing a submit handler
+        React's event types are generics: the part in <> says which element
+        fired it.
+
+          import type { FormEvent } from "react";
+
+          function handleSearch(event: FormEvent<HTMLFormElement>) {
+            event.preventDefault();
+            console.log("searching");
+          }
+
+          <form onSubmit={handleSearch}>...</form>
+
+        Docs: https://react.dev/learn/responding-to-events#preventing-default-behavior
+
+     d) A live region
+        Screen readers announce text that changes inside role="status". The
+        element must already be on the page before its text changes.
+
+          <p role="status">{saved ? "Draft saved" : ""}</p>
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/status_role
 
   6. STYLING
      - Stack the fields: `flex`, `flex-col`, `gap-4`, `max-w-xl`.

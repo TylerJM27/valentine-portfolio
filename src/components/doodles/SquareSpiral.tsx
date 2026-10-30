@@ -1,5 +1,23 @@
+type Props = { className?: string };
+
+export function SquareSpiral({ className }: Props) {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            aria-hidden="true"
+            focusable="false"
+            strokeWidth={1}
+            className={className}
+            strokeLinejoin="round"
+        >
+            <path d="M18.5 0.500061L0.5 3.00006L1 20.5001L21 19.5001L15.5 2.50006L1.5 8.00006L5.5 19.0001L19 16.0001L9.5 7.50006L6 12.0001L9.5 15.5001L11 12.0001" />
+        </svg>
+    );
+}
 /*
-  SquareSpiral — orange squared-off spiral (ROADMAP step 3.3)
+  SquareSpiral — orange squared-off spiral (ROADMAP step 3.7)
   ===========================================================
 
   1. PURPOSE

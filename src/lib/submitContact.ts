@@ -1,5 +1,5 @@
 /*
-  submitContact — sends the contact form (ROADMAP step 11.1)
+  submitContact — sends the contact form (ROADMAP step 12.1)
   ==========================================================
 
   1. PURPOSE
@@ -38,6 +38,58 @@
      - Typing env variables: adding the key to Vite's ImportMetaEnv
        interface gives it autocomplete and a string type. We'll do that
        together.
+
+  NEW CONCEPTS (first time in this project)
+     a) async/await with a POST fetch
+        `await` pauses the async function until the Promise settles. The
+        request body must be a string, so objects go through JSON.stringify.
+
+          async function saveNote(text: string) {
+            const response = await fetch("https://example.com/api/notes", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ text }),
+            });
+            return await response.json();
+          }
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+              https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+
+     b) try/catch, and why the error is `unknown`
+        In strict TypeScript the caught error is `unknown`, because anything
+        can be thrown. Check what it is before using it.
+
+          try {
+            await saveNote("hi");
+          } catch (error) {
+            const reason = error instanceof Error ? error.message : "Unknown error";
+            console.log(reason);
+          }
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch
+
+     c) Narrowing a discriminated union
+        Checking the shared field tells TypeScript which shape you have.
+
+          type Load = { state: "done"; rows: string[] } | { state: "failed"; reason: string };
+
+          if (load.state === "failed") {
+            console.log(load.reason);  // allowed: TypeScript knows it's the failed shape
+          }
+
+        Docs: https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions
+
+     d) Vite env variables and their type
+        .env.local holds   VITE_MAP_TOKEN=abc123
+        Code reads         import.meta.env.VITE_MAP_TOKEN
+        The type goes in src/vite-env.d.ts:
+
+          interface ImportMetaEnv {
+            readonly VITE_MAP_TOKEN: string;
+          }
+
+        Docs: https://vite.dev/guide/env-and-mode
 
   6. STYLING
      None.

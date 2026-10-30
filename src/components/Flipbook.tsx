@@ -1,5 +1,5 @@
 /*
-  Flipbook — scroll-driven writing packet viewer (ROADMAP step 12.2)
+  Flipbook — scroll-driven writing packet viewer (ROADMAP step 13.2)
   ==================================================================
 
   1. PURPOSE
@@ -41,6 +41,44 @@
      - Preloading: the next page image should already be loading, so flips
        don't show a blank. Render the next page hidden, or use
        `new Image().src`.
+
+  NEW CONCEPTS (first time in this project)
+     a) position: sticky
+        The element scrolls normally until it reaches its `top` offset, then
+        stays there until its parent scrolls out of view.
+
+          <aside className="sticky top-4">Table of contents</aside>
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/position#sticky_positioning
+
+     b) Derived values instead of extra state, and clamping
+        If a value can be calculated from props or state, calculate it during
+        render. Math.min / Math.max keep a number inside a range.
+
+          const fullName = `${first} ${last}`;            // no useState needed
+          const volume = Math.min(10, Math.max(0, raw));  // always 0 to 10
+
+        Docs: https://react.dev/learn/choosing-the-state-structure#avoid-redundant-state
+
+     c) Scrolling from code
+          window.scrollTo({ top: 600, behavior: "smooth" });
+          console.log(window.scrollY);  // how far the page is scrolled now
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo
+
+     d) The style prop for computed values
+        style takes an object with camelCase CSS names. Use it only for
+        values that are calculated; everything else stays in Tailwind.
+
+          <div style={{ height: `${rows * 40}px` }} />
+
+        Docs: https://react.dev/reference/react-dom/components/common#applying-css-styles
+
+     e) Preloading an image
+          const next = new Image();
+          next.src = "/photos/beach-2.jpg";  // the browser starts downloading now
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
 
   6. STYLING
      - Track: `relative`, with its height set from the page count (an inline

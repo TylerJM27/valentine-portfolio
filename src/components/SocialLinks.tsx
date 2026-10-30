@@ -1,6 +1,6 @@
 /*
-  SocialLinks — the row of social icons (ROADMAP step 10.2)
-  =========================================================
+  SocialLinks — the row of social icons (ROADMAP step 7.3)
+  ========================================================
 
   1. PURPOSE
      The group of social icon links near the bottom of the homepage

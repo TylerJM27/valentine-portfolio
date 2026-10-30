@@ -1,5 +1,5 @@
 /*
-  ResumePage — "/resume" (stub in ROADMAP step 4.4, built in step 11.3)
+  ResumePage — "/resume" (stub in ROADMAP step 4.4, built in step 12.3)
   =====================================================================
 
   1. PURPOSE
@@ -32,6 +32,34 @@
      - Linking sections to headings: aria-labelledby on <section>, pointing
        at the <h2>'s id, names the region.
 
+  NEW CONCEPTS (first time in this project)
+     a) A map inside a map
+        The inner list gets its own keys. Keys only need to be unique among
+        siblings, not across the whole page.
+
+          {teams.map((team) => (
+            <li key={team.id}>
+              {team.name}
+              <ul>
+                {team.players.map((player) => (
+                  <li key={player.id}>{player.name}</li>
+                ))}
+              </ul>
+            </li>
+          ))}
+
+        Docs: https://react.dev/learn/rendering-lists
+
+     b) download and aria-labelledby
+          <a href="/files/menu.pdf" download>Download the menu (PDF)</a>
+
+          <section aria-labelledby="faq-heading">
+            <h2 id="faq-heading">FAQ</h2>
+          </section>
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#download
+              https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby
+
   6. STYLING
      - Readable width: `max-w-3xl`, `mx-auto`, `space-y-10`.
      - Entries: on phones, stack each entry's fields. On wider screens, try a
@@ -43,7 +71,7 @@
 
   7. BUILD STEPS
      1. (Step 4.4) Stub: <title> and <h1>.
-     2. (Step 11.3) Add the download link.
+     2. (Step 12.3) Add the download link.
      3. Map the sections and entries.
      4. Add the contact section with <ContactForm />.
 

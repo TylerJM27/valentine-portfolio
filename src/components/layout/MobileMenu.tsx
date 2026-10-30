@@ -38,6 +38,57 @@
        setState directly inside an effect, which this project's React lint
        rules warn about.
 
+  NEW CONCEPTS (first time in this project)
+     a) useState and event handlers
+        useState returns the current value and a setter. onClick takes a
+        function to run on click (not the result of calling one).
+
+          const [count, setCount] = useState(0);
+
+          <button onClick={() => setCount(count + 1)}>Clicked {count} times</button>
+
+        Docs: https://react.dev/reference/react/useState
+
+     b) useEffect with a cleanup function
+        The effect runs after render. The function it returns runs before the
+        next run and when the component goes away. The array at the end lists
+        the values it depends on; [] means "only after the first render".
+
+          useEffect(() => {
+            function logWidth() {
+              console.log(window.innerWidth);
+            }
+            window.addEventListener("resize", logWidth);
+            return () => window.removeEventListener("resize", logWidth);
+          }, []);
+
+        Docs: https://react.dev/reference/react/useEffect
+
+     c) useRef for a DOM element, a TypeScript generic and ?.
+        `useRef<HTMLInputElement>(null)`: the part in <> is a generic, which
+        tells TypeScript what the ref will hold. `?.` (optional chaining)
+        stops safely if `current` is still null.
+
+          const searchRef = useRef<HTMLInputElement>(null);
+
+          <input ref={searchRef} />
+          <button onClick={() => searchRef.current?.select()}>Select all</button>
+
+        Docs: https://react.dev/reference/react/useRef
+              https://www.typescriptlang.org/docs/handbook/2/generics.html
+              https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+
+     d) useId
+        Makes an id that's unique on the page, for attributes that point at
+        another element by id.
+
+          const hintId = useId();
+
+          <input aria-describedby={hintId} />
+          <p id={hintId}>At least 8 characters.</p>
+
+        Docs: https://react.dev/reference/react/useId
+
   6. STYLING
      - Button: at least 44×44px. Look up: `size-11`, `inline-flex`,
        `items-center`, `justify-center`, and a visible focus outline.

@@ -1,5 +1,5 @@
 /*
-  DesignPieceCard — one design piece (ROADMAP step 7.1)
+  DesignPieceCard — one design piece (ROADMAP step 9.1)
   =====================================================
 
   1. PURPOSE
@@ -29,6 +29,21 @@
        ones keeps the call site short and keeps the component tied to the
        data type.
 
+  NEW CONCEPTS (first time in this project)
+     a) <figure>, <figcaption> and lazy images
+        figure groups an image with its caption. width/height (in pixels)
+        reserve space before it loads, and loading="lazy" waits until it's
+        near the screen.
+
+          <figure>
+            <img src="/charts/rainfall.png" alt="Bar chart: rain peaks in April"
+                 width={800} height={450} loading="lazy" />
+            <figcaption>Monthly rainfall, 2025</figcaption>
+          </figure>
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure
+              https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading
+
   6. STYLING
      - Phones: image on top, text below. Larger screens: side by side. Look
        up: `grid`, `gap-4`, `md:grid-cols-2`, `md:items-center`.
@@ -45,7 +60,8 @@
      4. Style for phones, then add `md:` columns.
 
   8. YOUR TURN
-     Write it fully. It's the first component that shows real data.
+     Write it fully. It's the first card component, and CaptionedPhoto reuses
+     its pattern later.
 
   9. DONE WHEN
      - It shows all three fields for a given piece.

@@ -1,8 +1,10 @@
 # Roadmap
 
-The build order, simplest first. Each step leaves the site runnable. Every file listed has notes at the top explaining what to build. Step numbers match the `ROADMAP step` tags in those notes.
+The build order. Each step leaves the site runnable. Every file listed has notes at the top explaining what to build. Step numbers match the `ROADMAP step` tags in those notes.
 
-Why this order: types and data come before anything that shows them. Simple components with no state (the doodles) come before state (the mobile menu). The easiest content page comes before the most visual one (home), and the trickiest piece (the scroll-driven flipbook) comes last, once you've had the most practice.
+Why this order: types and data come before anything that shows them. Simple components with no state (the doodles) come before state (the mobile menu). The home page, header and navigation come first, then a first deploy, so a real site is live early, with the other pages as stubs. The content pages follow, and the trickiest piece (the scroll-driven flipbook) comes last, once you've had the most practice.
+
+**Launch must-haves:** steps 3.1–3.5 and 4–8. The extra doodles (3.6–3.8) and the homepage cartoon are decoration and can go up in a later push.
 
 ---
 
@@ -30,14 +32,16 @@ Done when: a test `<p className="font-display text-white">` in App.tsx shows the
 2.8. `src/data/designPieces.ts`
 
 ## 3. Doodles and icons (props, no state)
+The header and home page need 3.1–3.5. 3.6–3.8 are homepage decoration.
+
 3.1. `src/components/doodles/Star.tsx` (sets the pattern)
-3.2. `src/components/doodles/Spiral.tsx`
-3.3. `src/components/doodles/SquareSpiral.tsx`
-3.4. `src/components/doodles/Exclamation.tsx`
-3.5. `src/components/doodles/WavyLine.tsx`
-3.6. `src/components/icons/InstagramIcon.tsx`
-3.7. `src/components/icons/EmailIcon.tsx`
-3.8. `src/components/icons/MenuIcon.tsx`
+3.2. `src/components/doodles/WavyLine.tsx`
+3.3. `src/components/icons/MenuIcon.tsx`
+3.4. `src/components/icons/InstagramIcon.tsx`
+3.5. `src/components/icons/EmailIcon.tsx`
+3.6. `src/components/doodles/Spiral.tsx`
+3.7. `src/components/doodles/SquareSpiral.tsx`
+3.8. `src/components/doodles/Exclamation.tsx`
 
 ## 4. Routing, layout and stub pages
 Before you start: install `react-router` (we'll talk about it first).
@@ -56,43 +60,48 @@ Before you start: install `react-router` (we'll talk about it first).
 ## 6. Mobile menu (first state and effect)
 6.1. `src/components/layout/MobileMenu.tsx`
 
-## 7. Design page (first real content page)
-7.1. `src/components/DesignPieceCard.tsx`
-7.2. `src/pages/DesignPage.tsx`
+## 7. Home page
+7.1. `src/hooks/usePrefersReducedMotion.ts`
+7.2. `src/components/SocialIconLink.tsx`
+7.3. `src/components/SocialLinks.tsx`
+7.4. `src/components/StarburstPhoto.tsx` (short on time? ship one still photo first, add the crossfade after)
+7.5. `src/pages/HomePage.tsx`
 
-## 8. Performance page
-8.1. `src/components/CaptionedPhoto.tsx`
-8.2. `src/components/PhotoGrid.tsx`
-8.3. `src/hooks/usePrefersReducedMotion.ts`
-8.4. `src/components/LoopingVideo.tsx`
-8.5. `src/pages/PerformancePage.tsx`
+## 8. First deploy
+8.1. `vercel.json`: rewrite every path to `/index.html`, so deep links like `/writing` work on the live site
+8.2. Push to GitHub, import the repo in Vercel, and deploy. From then on, every push to `main` redeploys on its own.
 
-## 9. Directing page (first third-party component)
+Done when: the Vercel URL loads the home page, and typing `/writing` straight into the address bar shows the stub, not a 404.
+
+## 9. Design page (first real content page)
+9.1. `src/components/DesignPieceCard.tsx`
+9.2. `src/pages/DesignPage.tsx`
+
+## 10. Performance page
+10.1. `src/components/CaptionedPhoto.tsx`
+10.2. `src/components/PhotoGrid.tsx`
+10.3. `src/components/LoopingVideo.tsx` (reuses `usePrefersReducedMotion` from 7.1)
+10.4. `src/pages/PerformancePage.tsx`
+
+## 11. Directing page (first third-party component)
 Before you start: install `react-lite-youtube-embed` (we'll talk about it first and read its README).
 
-9.1. `src/components/VideoCard.tsx`
-9.2. `src/pages/DirectingPage.tsx`
+11.1. `src/components/VideoCard.tsx`
+11.2. `src/pages/DirectingPage.tsx`
 
-## 10. Home page
-10.1. `src/components/SocialIconLink.tsx`
-10.2. `src/components/SocialLinks.tsx`
-10.3. `src/components/StarburstPhoto.tsx`
-10.4. `src/pages/HomePage.tsx`
+## 12. Resume page and contact form
+Before you start: create a Web3Forms access key and put it in `.env.local` as `VITE_WEB3FORMS_KEY`. Since the site is already live, also add it in the Vercel project settings (Settings > Environment Variables), then redeploy.
 
-## 11. Resume page and contact form
-Before you start: create a Web3Forms access key and put it in `.env.local` as `VITE_WEB3FORMS_KEY`.
+12.1. `src/lib/submitContact.ts`
+12.2. `src/components/ContactForm.tsx`
+12.3. `src/pages/ResumePage.tsx`
 
-11.1. `src/lib/submitContact.ts`
-11.2. `src/components/ContactForm.tsx`
-11.3. `src/pages/ResumePage.tsx`
+## 13. Writing page flipbook (hardest, saved for last)
+13.1. `src/hooks/useScrollProgress.ts`
+13.2. `src/components/Flipbook.tsx`
+13.3. `src/pages/WritingPage.tsx`
 
-## 12. Writing page flipbook (hardest, saved for last)
-12.1. `src/hooks/useScrollProgress.ts`
-12.2. `src/components/Flipbook.tsx`
-12.3. `src/pages/WritingPage.tsx`
-
-## 13. Finish and deploy
-13.1. `src/pages/NotFoundPage.tsx`: finish it
-13.2. Accessibility pass: keyboard-only walkthrough of every page, a Lighthouse and axe check, and reduced motion emulated on every page
-13.3. `vercel.json`: rewrite every path to `/index.html`, so deep links like `/writing` work on the live site
-13.4. Deploy to Vercel from GitHub, and set `VITE_WEB3FORMS_KEY` in the Vercel project settings
+## 14. Finish
+14.1. `src/pages/NotFoundPage.tsx`: finish it
+14.2. Accessibility pass: keyboard-only walkthrough of every page, a Lighthouse and axe check, and reduced motion emulated on every page
+14.3. Final check of the live site: every page, deep links, and a test submission of the contact form

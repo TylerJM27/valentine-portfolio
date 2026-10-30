@@ -1,6 +1,6 @@
 /*
-  PerformancePage — "/performance" (stub in ROADMAP step 4.4, built in step 8.5)
-  ==============================================================================
+  PerformancePage — "/performance" (stub in ROADMAP step 4.4, built in step 10.4)
+  ===============================================================================
 
   1. PURPOSE
      Lily's acting work: a looping video right at the top, then production
@@ -34,7 +34,7 @@
 
   7. BUILD STEPS
      1. (Step 4.4) Stub: <title> and <h1>.
-     2. (Step 8.5) Add PhotoGrid with the data.
+     2. (Step 10.4) Add PhotoGrid with the data.
      3. Add LoopingVideo above it.
      4. Decide how to show the h1.
 

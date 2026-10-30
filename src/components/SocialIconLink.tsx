@@ -1,6 +1,6 @@
 /*
-  SocialIconLink — one icon-only social link (ROADMAP step 10.1)
-  ==============================================================
+  SocialIconLink — one icon-only social link (ROADMAP step 7.2)
+  =============================================================
 
   1. PURPOSE
      A single social link (Instagram or email) shown as just an icon, but
@@ -30,6 +30,35 @@
        keep the same tab, or, if you use target="_blank", add
        rel="noopener noreferrer" and mention "(opens in new tab)" in the
        label.
+
+  NEW CONCEPTS (first time in this project)
+     a) Record<Keys, Value>
+        A TypeScript utility type for an object that must have exactly these
+        keys, each holding the same kind of value.
+
+          type Size = "small" | "large";
+
+          const padding: Record<Size, string> = {
+            small: "p-1",
+            large: "p-4",
+          };
+          // leaving out "large" is a type error
+
+        Docs: https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type
+
+     b) A component stored in a variable
+        Components are values, so you can put one in a variable and render
+        it. The variable's name must start with a capital letter, or React
+        treats it as an HTML tag. ComponentType<Props> is React's type for
+        "any component that takes these props".
+
+          import type { ComponentType } from "react";
+
+          const Title: ComponentType<{ text: string }> = isBig ? BigTitle : SmallTitle;
+
+          <Title text="Hello" />
+
+        Docs: https://react.dev/learn/your-first-component
 
   6. STYLING
      - Tap target at least 44×44px. Look up: `inline-flex`, `size-11`,

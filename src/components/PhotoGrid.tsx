@@ -1,6 +1,6 @@
 /*
-  PhotoGrid — grid of captioned photos (ROADMAP step 8.2)
-  =======================================================
+  PhotoGrid — grid of captioned photos (ROADMAP step 10.2)
+  ========================================================
 
   1. PURPOSE
      Lays out the performance photos in a responsive grid.
@@ -19,6 +19,19 @@
        so they know how much there is.
      - Container vs item: PhotoGrid only arranges, and CaptionedPhoto only
        displays. Small, single-job components are easier to change.
+
+  NEW CONCEPTS (first time in this project)
+     a) CSS columns (columns-*) for a masonry look
+        Unlike a grid, columns flow items top to bottom like a newspaper, so
+        tall and short items pack together. Space items with a bottom margin
+        rather than gap.
+
+          <div className="columns-2 gap-4 md:columns-3">
+            <img className="mb-4" ... />
+            <img className="mb-4" ... />
+          </div>
+
+        Docs: https://tailwindcss.com/docs/columns
 
   6. STYLING
      - One column on phones, two on tablets, three on desktop. Look up:

@@ -101,6 +101,7 @@ I switch modes by editing the line above. Follow whichever mode is set.
     8. "Your turn": the task I should do myself
     9. "Done when": how I'll know it works
 - Do not edit `App.tsx`, `main.tsx`, `index.html`, `package.json`, `vite.config.ts`, `tsconfig*.json`, or the global CSS file in this mode.
+- When a file's notes introduce a concept I haven't used yet in this project (e.g. a new array method, inline SVGs, a new hook), add a "New concept" section to its comment block with a short, generic example showing the syntax, plus a link to the official docs (MDN, react.dev, the TypeScript handbook, or the Tailwind docs). Keep the example unrelated to this file's task so it shows the pattern without writing my "Your turn" for me.
 - Do not import the placeholder files anywhere. They're unwired until I write them.
 - Also create a top-level `ROADMAP.md` that numbers the build order across all files.
 - Replace the Vite boilerplate `README.md` with a project README skeleton (markdown only) using the structure in "README upkeep".

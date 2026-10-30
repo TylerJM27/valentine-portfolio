@@ -1,5 +1,5 @@
 /*
-  usePrefersReducedMotion — "does this visitor want less motion?" (ROADMAP step 8.3)
+  usePrefersReducedMotion — "does this visitor want less motion?" (ROADMAP step 7.1)
   ==================================================================================
 
   1. PURPOSE
@@ -30,6 +30,51 @@
      - Why not just CSS? Tailwind's `motion-reduce:` handles CSS animations,
        but autoplaying a <video> and running a JavaScript timer need to know
        in JavaScript.
+
+  NEW CONCEPTS (first time in this project)
+     a) A custom hook
+        A function whose name starts with "use" and that calls other hooks.
+        Components call it like any built-in hook.
+
+          function useDocumentTitle(text: string) {
+            useEffect(() => {
+              document.title = text;
+            }, [text]);
+          }
+
+          // in a component: useDocumentTitle("Checkout");
+
+        Docs: https://react.dev/learn/reusing-logic-with-custom-hooks
+
+     b) useSyncExternalStore
+        Reads a value that lives outside React and re-renders when it
+        changes. This version tracks whether the browser is online:
+
+          function subscribe(onChange: () => void) {
+            window.addEventListener("online", onChange);
+            window.addEventListener("offline", onChange);
+            return () => {
+              window.removeEventListener("online", onChange);
+              window.removeEventListener("offline", onChange);
+            };
+          }
+
+          function getSnapshot() {
+            return navigator.onLine;
+          }
+
+          const isOnline = useSyncExternalStore(subscribe, getSnapshot);
+
+        Docs: https://react.dev/reference/react/useSyncExternalStore
+
+     c) window.matchMedia
+        Runs a CSS media query from JavaScript.
+
+          const wide = window.matchMedia("(min-width: 900px)");
+          console.log(wide.matches);  // true or false right now
+          wide.addEventListener("change", () => console.log(wide.matches));
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia
 
   6. STYLING
      None.

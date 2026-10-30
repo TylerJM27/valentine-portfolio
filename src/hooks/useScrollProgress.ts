@@ -1,6 +1,6 @@
 /*
-  useScrollProgress — how far through an element you've scrolled (ROADMAP step 12.1)
-  ===================================================================================
+  useScrollProgress — how far through an element you've scrolled (ROADMAP step 13.1)
+  ==================================================================================
 
   1. PURPOSE
      Powers the flipbook. Given a tall element (the scroll track), it returns
@@ -30,6 +30,50 @@
        scheduled) avoids wasted work.
      - Cleanup: remove the scroll and resize listeners, and cancel any pending
        frame, when the component unmounts.
+
+  NEW CONCEPTS (first time in this project)
+     a) getBoundingClientRect()
+        Returns an element's size and its position relative to the visible
+        screen, measured right now.
+
+          const box = card.getBoundingClientRect();
+          console.log(box.top, box.height);
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
+
+     b) requestAnimationFrame, with a "one at a time" guard
+        Schedules work just before the next screen paint and returns an id
+        for cancelAnimationFrame. This handler does the work at most once per
+        frame, however often the mouse moves:
+
+          let frame = 0;
+
+          function onMouseMove() {
+            if (frame) return;
+            frame = requestAnimationFrame(() => {
+              frame = 0;
+              drawCursorTrail();
+            });
+          }
+
+          // cleanup: cancelAnimationFrame(frame);
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame
+
+     c) Passive listeners
+          window.addEventListener("touchmove", onTouch, { passive: true });
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#passive
+
+     d) A hook that takes a ref
+        RefObject<T> is the type of what useRef returns, so a hook can accept
+        one as an argument.
+
+          import type { RefObject } from "react";
+
+          function useIsHovered(ref: RefObject<HTMLElement | null>) { ... }
+
+        Docs: https://react.dev/reference/react/useRef
 
   6. STYLING
      None.

@@ -1,5 +1,5 @@
 /*
-  WritingPage — "/writing" (stub in ROADMAP step 4.4, built in step 12.3)
+  WritingPage — "/writing" (stub in ROADMAP step 4.4, built in step 13.3)
   =======================================================================
 
   1. PURPOSE
@@ -35,7 +35,7 @@
 
   7. BUILD STEPS
      1. (Step 4.4) Stub: <title> and <h1>.
-     2. (Step 12.3) Add the intro and <Flipbook />.
+     2. (Step 13.3) Add the intro and <Flipbook />.
      3. Check the whole page from top to bottom on a phone.
 
   8. YOUR TURN

@@ -1,6 +1,6 @@
 /*
-  DirectingPage — "/directing" (stub in ROADMAP step 4.4, built in step 9.2)
-  ==========================================================================
+  DirectingPage — "/directing" (stub in ROADMAP step 4.4, built in step 11.2)
+  ===========================================================================
 
   1. PURPOSE
      Lily's directing work: several YouTube videos, each loading only when
@@ -28,7 +28,7 @@
 
   7. BUILD STEPS
      1. (Step 4.4) Stub: <title> and <h1>.
-     2. (Step 9.2) Map directingVideos to <li><VideoCard /></li> inside a
+     2. (Step 11.2) Map directingVideos to <li><VideoCard /></li> inside a
         <ul>, with key = id.
      3. Add the grid.
 

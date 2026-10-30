@@ -37,6 +37,36 @@
        of a component. It only affects hot reload in dev. We'll decide what to
        do about it if it shows up.
 
+  NEW CONCEPTS (first time in this project)
+     a) A route config with createBrowserRouter
+        Each route is an object: a `path` and the `element` to show. A parent
+        can have `children`; `index: true` marks the child shown at the
+        parent's own URL. This bakery site has a shell, a home and a menu:
+
+          import { createBrowserRouter } from "react-router";
+
+          export const router = createBrowserRouter([
+            {
+              path: "/",
+              element: <BakeryShell />,
+              children: [
+                { index: true, element: <Welcome /> },
+                { path: "menu", element: <Menu /> },
+              ],
+            },
+          ]);
+
+        Docs: https://reactrouter.com/start/data/routing
+
+     b) Handing the router to the app
+        RouterProvider takes the router and renders whatever matches the URL.
+
+          import { RouterProvider } from "react-router";
+
+          <RouterProvider router={router} />
+
+        Docs: https://reactrouter.com/start/data/installation
+
   6. STYLING
      None. Routing only.
 

@@ -1,6 +1,6 @@
 /*
-  CaptionedPhoto — one performance photo with caption (ROADMAP step 8.1)
-  ======================================================================
+  CaptionedPhoto — one performance photo with caption (ROADMAP step 10.1)
+  =======================================================================
 
   1. PURPOSE
      Shows one production photo with its caption and optional photo credit,
@@ -26,6 +26,15 @@
        are safe.)
      - Reuse: this is the same idea as DesignPieceCard. If they end up nearly
        identical, notice it, but don't merge them yet; they'll likely diverge.
+
+  NEW CONCEPTS (first time in this project)
+     a) && for "render this only if it exists"
+        If the left side is falsy (undefined, "", false), nothing renders.
+        Otherwise the right side does.
+
+          {user.nickname && <p>Also known as {user.nickname}</p>}
+
+        Docs: https://react.dev/learn/conditional-rendering#logical-and-operator-
 
   6. STYLING
      - Image: `w-full`, `h-auto`, a white border like the design cards,

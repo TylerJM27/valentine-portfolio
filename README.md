@@ -37,17 +37,18 @@ Mirrors [ROADMAP.md](ROADMAP.md).
 
 - [x] 1. Theme setup (colors, fonts)
 - [x] 2. Data types and placeholder data
-- [ ] 3. Doodles and icons
+- [x] 3. Doodles and icons
 - [ ] 4. Routing, layout and stub pages
 - [ ] 5. Header and desktop nav
 - [ ] 6. Mobile menu
-- [ ] 7. Design page
-- [ ] 8. Performance page
-- [ ] 9. Directing page
-- [ ] 10. Home page
-- [ ] 11. Resume page and contact form
-- [ ] 12. Writing page flipbook
-- [ ] 13. Finish and deploy
+- [ ] 7. Home page
+- [ ] 8. First deploy
+- [ ] 9. Design page
+- [ ] 10. Performance page
+- [ ] 11. Directing page
+- [ ] 12. Resume page and contact form
+- [ ] 13. Writing page flipbook
+- [ ] 14. Finish
 
 ## What I learned
 _Entries are added as each component is approved: what it does, plus one thing learned building it._
@@ -61,3 +62,8 @@ Learned: contrast belongs to a pair of colors, not a single color. Lime on the p
 Shared content types in `src/data/types.ts`, plus typed data files for the nav, profile, resume, performance video and photos, writing packet, directing videos and design pieces. Placeholder images were converted from 6–15 MB camera JPGs to WebP files of about 200 KB, with their real pixel sizes recorded for `width` and `height`.
 
 Learned: Vite serves `public/` from the site root, so a file at `public/placeholders/x.webp` is at `/placeholders/x.webp`. Without the leading `/`, the path is relative to the current page and breaks on URLs like `/design/`.
+
+### 3. Doodles and icons
+Eight inline SVG components: the Star, WavyLine, Spiral, SquareSpiral and Exclamation doodles, plus the Instagram, email and menu icons. Each takes a `className` for size, color and rotation, draws in `currentColor`, and is hidden from screen readers with `aria-hidden`. WavyLine stretches to any width with `preserveAspectRatio="none"` and keeps its line thickness with `vectorEffect="non-scaling-stroke"`. MenuIcon switches between bars and an X with a ternary on its `isOpen` prop.
+
+Learned: TypeScript doesn't check JSX attribute names that contain a dash, so typos like `aria-hiden` and old SVG names like `stroke-width` pass the build silently. Use the camelCase names where they exist, check `aria-*` spellings in the DevTools Accessibility pane, and watch the browser console for React's warnings.

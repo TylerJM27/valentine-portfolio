@@ -1,5 +1,5 @@
 /*
-  NotFoundPage — any unknown URL (stub in ROADMAP step 4.4, finished in step 13.1)
+  NotFoundPage — any unknown URL (stub in ROADMAP step 4.4, finished in step 14.1)
   ================================================================================
 
   1. PURPOSE
@@ -25,7 +25,7 @@
        route matched, so this page shows for every bad URL.
      - Deep links on Vercel: on the live site, a typo like /desing only
        reaches this page if vercel.json sends every URL to index.html (step
-       13.3). Without that, Vercel shows its own 404.
+       8.1). Without that, Vercel shows its own 404.
 
   6. STYLING
      Centered and simple: `flex`, `flex-col`, `items-center`, `text-center`,
@@ -33,7 +33,7 @@
 
   7. BUILD STEPS
      1. (Step 4.4) Stub: <title> and <h1>.
-     2. (Step 13.1) Add the message, the home link and the doodle.
+     2. (Step 14.1) Add the message, the home link and the doodle.
 
   8. YOUR TURN
      Write the copy and make it feel like Lily's site.

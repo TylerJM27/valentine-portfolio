@@ -27,6 +27,45 @@
      - Don't mark the current page with color alone. Add an underline or a
        doodle as well.
 
+  NEW CONCEPTS (first time in this project)
+     a) .map() in JSX, with key
+        .map() calls a function for each item and returns a new array. In
+        JSX, an array of elements renders as a list.
+
+          const fruits = ["apple", "pear", "plum"];
+
+          <ul>
+            {fruits.map((fruit) => (
+              <li key={fruit}>{fruit}</li>
+            ))}
+          </ul>
+
+        Docs: https://react.dev/learn/rendering-lists
+
+     b) A function as className
+        NavLink accepts a function instead of a string. It's called with
+        `{ isActive }` and returns the classes to use.
+
+          <NavLink
+            to="/inbox"
+            className={({ isActive }) => (isActive ? "font-bold" : "font-normal")}
+          >
+            Inbox
+          </NavLink>
+
+        Docs: https://reactrouter.com/api/components/NavLink
+
+     c) Transitions, and switching them off for reduced motion
+        `transition-*` animates a change, such as one caused by hover.
+        `motion-reduce:` applies only when the visitor asked for less motion.
+
+          <button className="transition-transform hover:scale-105 motion-reduce:transition-none">
+            Grow
+          </button>
+
+        Docs: https://tailwindcss.com/docs/transition-property
+              https://tailwindcss.com/docs/hover-focus-and-other-states#prefers-reduced-motion
+
   6. STYLING
      - Spread the row across the width like the sketch. Look up: `flex`,
        `justify-between`, `items-baseline`, `gap-4`.

@@ -1,6 +1,6 @@
 /*
-  LoopingVideo — muted looping clip with a pause button (ROADMAP step 8.4)
-  ========================================================================
+  LoopingVideo — muted looping clip with a pause button (ROADMAP step 10.3)
+  =========================================================================
 
   1. PURPOSE
      The video at the very top of /performance: plays silently on a loop,
@@ -36,6 +36,24 @@
        playsInline. Both are required.
      - Reduced motion: no autoPlay, so the poster shows and the button says
        "Play".
+
+  NEW CONCEPTS (first time in this project)
+     a) Media elements: methods, events and a Promise
+        <audio> and <video> share the same API. .play() returns a Promise, a
+        result that arrives later; .catch() handles it failing. onPlay and
+        onPause fire whenever playback actually starts or stops.
+
+          const bellRef = useRef<HTMLAudioElement>(null);
+
+          <audio ref={bellRef} src="/sounds/bell.mp3"
+                 onPlay={() => console.log("ringing")}
+                 onPause={() => console.log("quiet")} />
+          <button onClick={() => bellRef.current?.play().catch(() => console.log("blocked"))}>
+            Ring
+          </button>
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play
+              https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video
 
   6. STYLING
      - Video: full width, fixed shape so the page doesn't jump. Look up:

@@ -27,6 +27,34 @@
      - Skip target: SkipLink points at "#content". Adding tabIndex={-1} to
        <main> makes sure focus actually moves there in every browser.
 
+  NEW CONCEPTS (first time in this project)
+     a) <Outlet /> and fragments
+        <Outlet /> marks where the matched child route appears. `<>...</>` is
+        a fragment: it groups elements without adding an extra <div>.
+
+          import { Outlet } from "react-router";
+
+          function BakeryShell() {
+            return (
+              <>
+                <p>Open daily 7am to 3pm</p>
+                <Outlet />
+              </>
+            );
+          }
+
+        Docs: https://reactrouter.com/api/components/Outlet
+              https://reactrouter.com/api/components/ScrollRestoration
+              https://react.dev/reference/react/Fragment
+
+     b) Responsive prefixes in Tailwind
+        Classes without a prefix apply at every width (mobile first).
+        `sm:`, `md:` and `lg:` versions take over from that width up.
+
+          <p className="text-base md:text-xl lg:text-3xl">Grows on bigger screens</p>
+
+        Docs: https://tailwindcss.com/docs/responsive-design
+
   6. STYLING
      - Outer wrapper fills the screen in hot pink, with plum body text and the
        body font. Look up: `min-h-svh` plus your theme utilities from ROADMAP

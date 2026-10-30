@@ -28,6 +28,17 @@
        (aria-hidden inside the doodle components), so a screen reader just
        hears "Lily Valentine, link".
 
+  NEW CONCEPTS (first time in this project)
+     a) <Link> instead of <a> for pages inside the site
+        A plain <a> reloads the whole site. <Link> only swaps the page. Keep
+        using <a> for links that leave the site (like Instagram).
+
+          import { Link } from "react-router";
+
+          <Link to="/contact">Get in touch</Link>
+
+        Docs: https://reactrouter.com/api/components/Link
+
   6. STYLING
      - Name row: a centered flex row. Look up: `flex`, `items-center`,
        `justify-center`, `gap-3`, `md:gap-6`.

@@ -25,6 +25,16 @@
      - Responsive show/hide: both versions are always in the component, and
        CSS picks which one is visible at each screen width.
 
+  NEW CONCEPTS (first time in this project)
+     a) Naming a landmark with aria-label
+        When a page has more than one landmark of a kind, aria-label tells
+        them apart. A screen reader would announce this one as "Footer,
+        navigation".
+
+          <nav aria-label="Footer">...</nav>
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label
+
   6. STYLING
      Look up: `hidden md:block` (NavLinks wrapper, and the wavy lines if you
      hide them on phones) and `md:hidden` (MobileMenu wrapper). Give the wavy

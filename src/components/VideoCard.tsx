@@ -1,6 +1,6 @@
 /*
-  VideoCard — one click-to-load YouTube video (ROADMAP step 9.1)
-  ==============================================================
+  VideoCard — one click-to-load YouTube video (ROADMAP step 11.1)
+  ===============================================================
 
   1. PURPOSE
      Shows one directing video as a thumbnail with a play button. The real
@@ -29,6 +29,20 @@
      - The library's CSS: it ships its own stylesheet. That's an exception to
        "one global stylesheet", because it's a library's CSS, not ours. We'll
        decide together whether to import it in main.tsx or in index.css.
+
+  NEW CONCEPTS (first time in this project)
+     a) Default imports, and importing a package's CSS
+        `import Name from "pkg"` (no braces) takes the package's default
+        export; braces take named exports. Importing a .css file from a
+        package makes Vite bundle it.
+
+          import Confetti from "some-confetti-package";
+          import "some-confetti-package/dist/confetti.css";
+
+          <Confetti pieces={50} />
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
+              https://vite.dev/guide/features#css
 
   6. STYLING
      - Card: `flex`, `flex-col`, `gap-3`.

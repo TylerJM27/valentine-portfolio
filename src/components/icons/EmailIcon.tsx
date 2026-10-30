@@ -1,5 +1,26 @@
+type Props = { className?: string };
+
+export function EmailIcon({ className }: Props) {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            aria-hidden="true"
+            focusable="false"
+            strokeWidth={2}
+            className={className}
+            strokeLinejoin="round"
+            strokeLinecap="round"
+        >
+            <rect x="2" y="5" width="20" height="14" rx="2" />
+            <polyline points="3 6 12 11 12 11 21 6" />
+        </svg>
+    );
+}
+
 /*
-  EmailIcon — envelope glyph for the email link (ROADMAP step 3.7)
+  EmailIcon — envelope glyph for the email link (ROADMAP step 3.5)
   ================================================================
 
   1. PURPOSE
