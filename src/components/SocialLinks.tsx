@@ -1,3 +1,20 @@
+import type { SocialLink } from "../data/types";
+import { SocialIconLink } from "./SocialIconLink";
+
+type Props = { links: SocialLink[] };
+
+export function SocialLinks({ links }: Props) {
+    return (
+        <ul className="flex items-center gap-4">
+            {links.map((link) => (
+                <li key={link.platform}>
+                    <SocialIconLink link={link} />
+                </li>
+            ))}
+        </ul>
+    );
+}
+
 /*
   SocialLinks — the row of social icons (ROADMAP step 7.3)
   ========================================================

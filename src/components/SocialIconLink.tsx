@@ -1,3 +1,32 @@
+import type { ComponentType } from "react";
+import type { SocialLink, SocialPlatform } from "../data/types";
+import { EmailIcon } from "./icons/EmailIcon";
+import { InstagramIcon } from "./icons/InstagramIcon";
+
+type Props = { link: SocialLink };
+
+const platformIcons: Record<
+    SocialPlatform,
+    ComponentType<{ className?: string }>
+> = {
+    instagram: InstagramIcon,
+    email: EmailIcon,
+};
+
+export function SocialIconLink({ link }: Props) {
+    const Icon = platformIcons[link.platform];
+
+    return (
+        <a
+            href={link.href}
+            aria-label={link.label}
+            className="inline-flex size-11 items-center justify-center text-white hover:rotate-6 transition-transform motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+        >
+            <Icon className="size-7" />
+        </a>
+    );
+}
+
 /*
   SocialIconLink — one icon-only social link (ROADMAP step 7.2)
   =============================================================

@@ -1,3 +1,71 @@
+import { useEffect, useState } from "react";
+import type { ImageAsset } from "../data/types";
+import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
+
+type Props = {
+    silly: ImageAsset;
+    serious: ImageAsset;
+    intervalMs?: number;
+};
+
+// The clip-path and the SVG outline use the same points, so they line up.
+const starburstClip =
+    "[clip-path:polygon(52%_1%,63%_20%,88%_10%,80%_36%,99%_47%,82%_61%,92%_89%,63%_81%,47%_99%,36%_80%,11%_90%,20%_62%,1%_52%,19%_37%,8%_12%,37%_19%)]";
+const starburstPoints =
+    "52,1 63,20 88,10 80,36 99,47 82,61 92,89 63,81 47,99 36,80 11,90 20,62 1,52 19,37 8,12 37,19";
+
+export function StarburstPhoto({ silly, serious, intervalMs = 6000 }: Props) {
+    const [showSerious, setShowSerious] = useState(false);
+    const reduceMotion = usePrefersReducedMotion();
+
+    useEffect(() => {
+        if (reduceMotion) return;
+
+        const id = setInterval(() => {
+            setShowSerious((current) => !current);
+        }, intervalMs);
+        return () => clearInterval(id);
+    }, [intervalMs, reduceMotion]);
+
+    return (
+        <div className="relative aspect-square w-full max-w-md mx-auto">
+            <img
+                src={silly.src}
+                alt={silly.alt}
+                width={silly.width}
+                height={silly.height}
+                className={`absolute inset-0 size-full object-cover ${starburstClip}`}
+            />
+            {!reduceMotion && (
+                <img
+                    src={serious.src}
+                    alt=""
+                    width={serious.width}
+                    height={serious.height}
+                    className={`absolute inset-0 size-full object-cover transition-opacity duration-2000 ${starburstClip} ${
+                        showSerious ? "opacity-100" : "opacity-0"
+                    }`}
+                />
+            )}
+            <svg
+                viewBox="0 0 100 100"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={3}
+                strokeLinejoin="round"
+                className="absolute inset-0 size-full overflow-visible text-white pointer-events-none"
+                aria-hidden="true"
+                focusable="false"
+            >
+                <polygon
+                    points={starburstPoints}
+                    vectorEffect="non-scaling-stroke"
+                />
+            </svg>
+        </div>
+    );
+}
+
 /*
   StarburstPhoto — headshot in a starburst frame, slow crossfade (ROADMAP step 7.4)
   =================================================================================

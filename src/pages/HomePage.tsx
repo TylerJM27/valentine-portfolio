@@ -1,10 +1,57 @@
+import { Link } from "react-router";
+import { Exclamation } from "../components/doodles/Exclamation";
+import { Spiral } from "../components/doodles/Spiral";
+import { SquareSpiral } from "../components/doodles/SquareSpiral";
+import { SocialLinks } from "../components/SocialLinks";
+import { StarburstPhoto } from "../components/StarburstPhoto";
+import { profile } from "../data/profile";
+
 export function HomePage() {
     return (
-        <div>
-            <title>Home Page</title>
-            <h1 className="flex justify-center text-5xl font-display text-white">
-                Home Page
-            </h1>
+        <div className="relative py-8 lg:pr-40 lg:pb-24">
+            <title>{profile.name}</title>
+
+            <div className="grid gap-8 md:grid-cols-2 md:items-center">
+                <StarburstPhoto
+                    silly={profile.headshots.silly}
+                    serious={profile.headshots.serious}
+                />
+
+                <div className="space-y-6">
+                    <h1 className="font-display text-white text-5xl underline decoration-white underline-offset-8">
+                        About
+                    </h1>
+                    <div className="space-y-4 text-lg leading-relaxed max-w-prose">
+                        {profile.bio.map((paragraph) => (
+                            <p key={paragraph}>{paragraph}</p>
+                        ))}
+                    </div>
+                    <Link
+                        to="/resume"
+                        className="inline-flex min-h-11 items-center rounded-md bg-plum px-5 font-display text-xl text-white hover:-rotate-2 transition-transform motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+                    >
+                        See my resume
+                    </Link>
+                    <SocialLinks links={profile.socialLinks} />
+                </div>
+            </div>
+
+            {profile.cartoon && (
+                <img
+                    src={profile.cartoon.src}
+                    alt={profile.cartoon.alt}
+                    width={profile.cartoon.width}
+                    height={profile.cartoon.height}
+                    loading="lazy"
+                    className="mt-8 ml-auto w-40 lg:absolute lg:right-0 lg:bottom-0 lg:mt-0"
+                />
+            )}
+
+            <Exclamation className="hidden lg:block absolute right-0 top-1/4 w-36 text-lime" />
+            <Spiral className="hidden lg:block absolute bottom-4 left-0 size-20 text-lime" />
+            <Spiral className="hidden lg:block absolute bottom-6 left-[44%] size-12 text-lime" />
+            <SquareSpiral className="hidden lg:block absolute bottom-4 left-1/4 size-16 text-orange" />
+            <SquareSpiral className="hidden lg:block absolute bottom-6 right-1/4 size-14 text-orange" />
         </div>
     );
 }

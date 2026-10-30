@@ -17,8 +17,8 @@ export const profile: Profile = {
         },
     },
     bio: [
-        "I’m Lily Valentine, an actor, writer, and director based in [city]. I’ve been performing since [age or year], when I [first role or moment that got her started]. These days I split my time between the stage, the page, and the director’s chair, and I like it best when the three get mixed up.",
-        "As a writer, I make [plays / short films / sketches] about [two or three subjects she keeps coming back to]. As a director, I’m drawn to [the kind of work, e.g. small casts, strange comedies, stories told out of order]. My most recent project was [title], which [one concrete detail: where it ran, who it was with, what it was about].",
+        "I’m Lily Valentine, an actor, writer, and director based in Chicago. I’ve been performing since I was 1 years old, when I felt the love of standup. These days I split my time between the stage, the page, and the director’s chair, and I like it best when the three get mixed up.",
+        "As a writer, I make short form comedies about my life and things I have experienced. As a director, I’m drawn to [the kind of work, e.g. small casts, strange comedies, stories told out of order]. My most recent project was [title], which [one concrete detail: where it ran, who it was with, what it was about].",
         "I also do graphic design, mostly [posters, zines, show branding], often for my own productions. If you want to work together or just say hi, the contact form is on my resume page.",
     ],
     socialLinks: [

@@ -1,3 +1,21 @@
+import { useSyncExternalStore } from "react";
+
+const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
+
+function subscribe(onChange: () => void) {
+    const mediaQuery = window.matchMedia(reducedMotionQuery);
+    mediaQuery.addEventListener("change", onChange);
+    return () => mediaQuery.removeEventListener("change", onChange);
+}
+
+function getSnapshot() {
+    return window.matchMedia(reducedMotionQuery).matches;
+}
+
+export function usePrefersReducedMotion() {
+    return useSyncExternalStore(subscribe, getSnapshot);
+}
+
 /*
   usePrefersReducedMotion — "does this visitor want less motion?" (ROADMAP step 7.1)
   ==================================================================================
