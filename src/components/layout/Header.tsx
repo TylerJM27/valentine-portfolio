@@ -1,3 +1,27 @@
+import { Link } from "react-router";
+import { Star } from "../doodles/Star";
+import { Spiral } from "../doodles/Spiral";
+import { Nav } from "./Nav";
+
+export function Header() {
+    return (
+        <header>
+            <div className="flex flex-row content-center justify-center relative py-6 gap-3">
+                <Star className="size-10 md:size-12 lg:size-20 text-white" />
+                <Link
+                    to="/"
+                    className="font-display text-white uppercase text-4xl md:text-6xl lg:text-7xl"
+                >
+                    Lily Valentine
+                </Link>
+                <Star className="size-10 md:size-12 lg:size-20 text-white" />
+            </div>
+            <Spiral className="hidden md:block absolute rotate-25 size-8 md:size-10 lg:size-12 text-lime top-2 left-2 md:left-15 xl:left-25" />
+            <Spiral className="hidden md:block absolute rotate-180 size-8 md:size-10 lg:size-12 text-lime top-16 right-2 md:right-15 xl:right-25" />
+            <Nav />
+        </header>
+    );
+}
 /*
   Header — name between two stars, nav below (ROADMAP step 5.1)
   =============================================================

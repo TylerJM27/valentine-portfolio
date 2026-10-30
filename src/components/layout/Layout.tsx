@@ -1,3 +1,20 @@
+import { Outlet, ScrollRestoration } from "react-router";
+import { SkipLink } from "./SkipLink";
+import { Header } from "./Header";
+
+export function Layout() {
+    return (
+        <div className="min-h-svh bg-pink text-plum font-body max-w-6xl mx-auto px-4 sm:px-6 overflow-x-clip">
+            <SkipLink />
+            <Header />
+            <main id="content" tabIndex={-1}>
+                <ScrollRestoration />
+                <Outlet />
+            </main>
+        </div>
+    );
+}
+
 /*
   Layout — the frame every page sits in (ROADMAP step 4.2)
   ========================================================

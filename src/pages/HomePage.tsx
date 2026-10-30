@@ -1,3 +1,14 @@
+export function HomePage() {
+    return (
+        <div>
+            <title>Home Page</title>
+            <h1 className="flex justify-center text-5xl font-display text-white">
+                Home Page
+            </h1>
+        </div>
+    );
+}
+
 /*
   HomePage — "/" (stub in ROADMAP step 4.4, built in step 7.5)
   ============================================================

@@ -1,3 +1,14 @@
+export function ResumePage() {
+    return (
+        <div>
+            <title>Resume Page</title>
+            <h1 className="flex justify-center text-5xl font-display text-white">
+                Resume Page
+            </h1>
+        </div>
+    );
+}
+
 /*
   ResumePage — "/resume" (stub in ROADMAP step 4.4, built in step 12.3)
   =====================================================================

@@ -1,3 +1,18 @@
+import { WavyLine } from "../doodles/WavyLine";
+import { NavLinks } from "./NavLinks";
+import { MobileMenu } from "./MobileMenu";
+
+export function Nav() {
+    return (
+        <nav aria-label="Main" className="relative">
+            <WavyLine className="w-full text-white" />
+            <NavLinks className="hidden md:flex justify-between items-baseline gap-4 py-3" />
+            <MobileMenu className="flex justify-end md:hidden" />
+            <WavyLine className="w-full text-white" />
+        </nav>
+    );
+}
+
 /*
   Nav — the nav row between two wavy lines (ROADMAP step 5.2)
   ===========================================================

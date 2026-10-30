@@ -1,3 +1,14 @@
+export function DesignPage() {
+    return (
+        <div>
+            <title>Design Page</title>
+            <h1 className="flex justify-center text-5xl font-display text-white">
+                Design Page
+            </h1>
+        </div>
+    );
+}
+
 /*
   DesignPage — "/design" (stub in ROADMAP step 4.4, built in step 9.2)
   ====================================================================

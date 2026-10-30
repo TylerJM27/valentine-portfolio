@@ -1,3 +1,71 @@
+import { useState, useId, useRef, useEffect } from "react";
+import { MenuIcon } from "../icons/MenuIcon";
+import { NavLink } from "react-router";
+import { navItems } from "../../data/navigation";
+
+type Props = { className?: string };
+
+const NavLinkStyles =
+    "font-display block py-2 px-4 text-2xl text-white motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4 hover:-rotate-2 transition-transform";
+
+export function MobileMenu({ className }: Props) {
+    const [isOpen, setIsOpen] = useState(false);
+    const menuId = useId();
+    const buttonRef = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+        if (!isOpen) return;
+
+        function handleKeyDown(event: KeyboardEvent) {
+            if (event.key === "Escape") {
+                setIsOpen(false);
+                buttonRef.current?.focus();
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown);
+        return () => document.removeEventListener("keydown", handleKeyDown);
+    }, [isOpen]);
+
+    return (
+        <div className={className}>
+            <button
+                className="size-11 inline-flex items-center justify-center text-white focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4"
+                type="button"
+                onClick={() => setIsOpen(!isOpen)}
+                aria-label="Menu"
+                aria-expanded={isOpen}
+                aria-controls={menuId}
+                ref={buttonRef}
+            >
+                <MenuIcon className="size-8" isOpen={isOpen} />
+            </button>
+            {isOpen && (
+                <ul
+                    id={menuId}
+                    className="absolute inset-x-0 top-full z-40 bg-pink py-4 flex flex-col gap-2 border-b-5 border-plum"
+                >
+                    {navItems.map((item) => (
+                        <li key={item.to}>
+                            <NavLink
+                                to={item.to}
+                                onClick={() => setIsOpen(false)}
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? `font-bold underline decoration-lime decoration-wavy underline-offset-5 ${NavLinkStyles}`
+                                        : `font-normal ${NavLinkStyles}`
+                                }
+                            >
+                                {item.label}
+                            </NavLink>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    );
+}
+
 /*
   MobileMenu — hamburger button + dropdown (ROADMAP step 6)
   =========================================================

@@ -1,3 +1,14 @@
+export function DirectingPage() {
+    return (
+        <div>
+            <title>Directing Page</title>
+            <h1 className="flex justify-center text-5xl font-display text-white">
+                Directing Page
+            </h1>
+        </div>
+    );
+}
+
 /*
   DirectingPage — "/directing" (stub in ROADMAP step 4.4, built in step 11.2)
   ===========================================================================

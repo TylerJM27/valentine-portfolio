@@ -1,3 +1,50 @@
+import { createBrowserRouter } from "react-router";
+import { Layout } from "./components/layout/Layout";
+import { DesignPage } from "./pages/DesignPage";
+import { DirectingPage } from "./pages/DirectingPage";
+import { HomePage } from "./pages/HomePage";
+import { NotFoundPage } from "./pages/NotFoundPage";
+import { PerformancePage } from "./pages/PerformancePage";
+import { ResumePage } from "./pages/ResumePage";
+import { WritingPage } from "./pages/WritingPage";
+
+export const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Layout />,
+        children: [
+            {
+                index: true,
+                element: <HomePage />,
+            },
+            {
+                path: "design",
+                element: <DesignPage />,
+            },
+            {
+                path: "directing",
+                element: <DirectingPage />,
+            },
+            {
+                path: "performance",
+                element: <PerformancePage />,
+            },
+            {
+                path: "resume",
+                element: <ResumePage />,
+            },
+            {
+                path: "writing",
+                element: <WritingPage />,
+            },
+            {
+                path: "*",
+                element: <NotFoundPage />,
+            },
+        ],
+    },
+]);
+
 /*
   routes.tsx — the route config (ROADMAP step 4.1)
   =================================================

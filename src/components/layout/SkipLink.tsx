@@ -1,3 +1,14 @@
+export function SkipLink() {
+    return (
+        <a
+            href="#content"
+            className="focus:bg-white focus:text-plum focus:p-4 focus:rounded-md sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50"
+        >
+            Skip to content.
+        </a>
+    );
+}
+
 /*
   SkipLink — "Skip to content" for keyboard users (ROADMAP step 4.3)
   ==================================================================

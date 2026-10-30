@@ -1,3 +1,14 @@
+export function PerformancePage() {
+    return (
+        <div>
+            <title>Performance Page</title>
+            <h1 className="flex justify-center text-5xl font-display text-white">
+                Performance Page
+            </h1>
+        </div>
+    );
+}
+
 /*
   PerformancePage — "/performance" (stub in ROADMAP step 4.4, built in step 10.4)
   ===============================================================================

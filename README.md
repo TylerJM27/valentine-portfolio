@@ -38,9 +38,9 @@ Mirrors [ROADMAP.md](ROADMAP.md).
 - [x] 1. Theme setup (colors, fonts)
 - [x] 2. Data types and placeholder data
 - [x] 3. Doodles and icons
-- [ ] 4. Routing, layout and stub pages
+- [x] 4. Routing, layout and stub pages
 - [ ] 5. Header and desktop nav
-- [ ] 6. Mobile menu
+- [x] 6. Mobile menu
 - [ ] 7. Home page
 - [ ] 8. First deploy
 - [ ] 9. Design page
@@ -67,3 +67,13 @@ Learned: Vite serves `public/` from the site root, so a file at `public/placehol
 Eight inline SVG components: the Star, WavyLine, Spiral, SquareSpiral and Exclamation doodles, plus the Instagram, email and menu icons. Each takes a `className` for size, color and rotation, draws in `currentColor`, and is hidden from screen readers with `aria-hidden`. WavyLine stretches to any width with `preserveAspectRatio="none"` and keeps its line thickness with `vectorEffect="non-scaling-stroke"`. MenuIcon switches between bars and an X with a ternary on its `isOpen` prop.
 
 Learned: TypeScript doesn't check JSX attribute names that contain a dash, so typos like `aria-hiden` and old SVG names like `stroke-width` pass the build silently. Use the camelCase names where they exist, check `aria-*` spellings in the DevTools Accessibility pane, and watch the browser console for React's warnings.
+
+### 4. Routing, layout and stub pages
+`src/routes.tsx` uses `createBrowserRouter` with `Layout` as the parent route, an index route for home, five page routes and a `*` catch-all for NotFoundPage. `Layout` holds the skip link and `<main id="content">` with `<Outlet />` and `<ScrollRestoration />`; its `<Header />` line stays commented out until step 5. All seven pages are stubs with their own `<title>` and `<h1>`.
+
+Learned: a link like `href="#content"` only works if an element's `id` is exactly `content`. A misplaced quote once turned the id into the string `content tabIndex={-1}`, and both the build and the linter passed, so behavior like this has to be tested by hand.
+
+### 6. Mobile menu
+A hamburger button below 768px that opens a dropdown of the same five pages from `navigation.ts`. The button has an `aria-label`, `aria-expanded` and `aria-controls`, and a tap target of 44px. The menu closes when a page is chosen, and a `useEffect` adds a keydown listener only while it's open, so Escape closes it and returns focus to the button. The cleanup function removes the listener.
+
+Learned: hooks must be called inside a component. A `useState` placed above the function crashed the whole app to a blank page, and the build still passed. Only `npm run lint` caught it, so run both before calling something done.

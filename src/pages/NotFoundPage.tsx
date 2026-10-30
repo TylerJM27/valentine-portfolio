@@ -1,3 +1,14 @@
+export function NotFoundPage() {
+    return (
+        <div>
+            <title>Page Not Found</title>
+            <h1 className="flex justify-center text-5xl font-display text-white">
+                Page Not Found
+            </h1>
+        </div>
+    );
+}
+
 /*
   NotFoundPage — any unknown URL (stub in ROADMAP step 4.4, finished in step 14.1)
   ================================================================================

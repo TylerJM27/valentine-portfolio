@@ -1,3 +1,14 @@
+export function WritingPage() {
+    return (
+        <div>
+            <title>Writing Page</title>
+            <h1 className="flex justify-center text-5xl font-display text-white">
+                Writing Page
+            </h1>
+        </div>
+    );
+}
+
 /*
   WritingPage — "/writing" (stub in ROADMAP step 4.4, built in step 13.3)
   =======================================================================

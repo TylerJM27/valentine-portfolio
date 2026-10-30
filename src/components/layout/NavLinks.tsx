@@ -1,3 +1,31 @@
+import { NavLink } from "react-router";
+import { navItems } from "../../data/navigation";
+
+type Props = { className?: string };
+const NavLinkStyles =
+    "font-display text-white text-2xl lg:text-3xl inline-block focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4 hover:-rotate-2 transition-transform motion-reduce:transition-none";
+
+export function NavLinks({ className }: Props) {
+    return (
+        <ul className={className}>
+            {navItems.map((item) => (
+                <li key={item.to}>
+                    <NavLink
+                        to={item.to}
+                        className={({ isActive }) =>
+                            isActive
+                                ? `font-bold underline decoration-lime decoration-wavy underline-offset-5 ${NavLinkStyles}`
+                                : `font-normal ${NavLinkStyles}`
+                        }
+                    >
+                        {item.label}
+                    </NavLink>
+                </li>
+            ))}
+        </ul>
+    );
+}
+
 /*
   NavLinks — the row of five page links (ROADMAP step 5.3)
   ========================================================
