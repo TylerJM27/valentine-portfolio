@@ -2,7 +2,7 @@
 
 The build order. Each step leaves the site runnable. Every file listed has notes at the top explaining what to build. Step numbers match the `ROADMAP step` tags in those notes.
 
-Why this order: types and data come before anything that shows them. Simple components with no state (the doodles) come before state (the mobile menu). The home page, header and navigation come first, then a first deploy, so a real site is live early, with the other pages as stubs. The content pages follow, and the trickiest piece (the scroll-driven flipbook) comes last, once you've had the most practice.
+Why this order: types and data come before anything that shows them. Simple components with no state (the doodles) come before state (the mobile menu). The home page, header and navigation come first, then a first deploy, so a real site is live early, with the other pages as stubs. The content pages follow. The Resume and Writing pages were moved to the front of them because they're needed sooner, so the trickiest piece (the scroll-driven flipbook) now comes second instead of last.
 
 **Launch must-haves:** steps 3.1–3.5 and 4–8. The extra doodles (3.6–3.8) and the homepage cartoon are decoration and can go up in a later push.
 
@@ -73,33 +73,33 @@ Before you start: install `react-router` (we'll talk about it first).
 
 Done when: the Vercel URL loads the home page, and typing `/writing` straight into the address bar shows the stub, not a 404.
 
-## 9. Design page (first real content page)
-9.1. `src/components/DesignPieceCard.tsx`
-9.2. `src/pages/DesignPage.tsx`
-
-## 10. Performance page
-10.1. `src/components/CaptionedPhoto.tsx`
-10.2. `src/components/PhotoGrid.tsx`
-10.3. `src/components/LoopingVideo.tsx` (reuses `usePrefersReducedMotion` from 7.1)
-10.4. `src/pages/PerformancePage.tsx`
-
-## 11. Directing page (first third-party component)
-Before you start: install `react-lite-youtube-embed` (we'll talk about it first and read its README).
-
-11.1. `src/components/VideoCard.tsx`
-11.2. `src/pages/DirectingPage.tsx`
-
-## 12. Resume page and contact form
+## 9. Resume page and contact form (first real content page)
 Before you start: create a Web3Forms access key and put it in `.env.local` as `VITE_WEB3FORMS_KEY`. Since the site is already live, also add it in the Vercel project settings (Settings > Environment Variables), then redeploy.
 
-12.1. `src/lib/submitContact.ts`
-12.2. `src/components/ContactForm.tsx`
-12.3. `src/pages/ResumePage.tsx`
+9.1. `src/lib/submitContact.ts`
+9.2. `src/components/ContactForm.tsx`
+9.3. `src/pages/ResumePage.tsx`
 
-## 13. Writing page flipbook (hardest, saved for last)
-13.1. `src/hooks/useScrollProgress.ts`
-13.2. `src/components/Flipbook.tsx`
-13.3. `src/pages/WritingPage.tsx`
+## 10. Writing page flipbook (hardest step)
+10.1. `src/hooks/useScrollProgress.ts`
+10.2. `src/components/Flipbook.tsx` (reuses `usePrefersReducedMotion` from 7.1)
+10.3. `src/pages/WritingPage.tsx`
+
+## 11. Design page
+11.1. `src/components/DesignPieceCard.tsx`
+11.2. `src/pages/DesignPage.tsx`
+
+## 12. Performance page
+12.1. `src/components/CaptionedPhoto.tsx`
+12.2. `src/components/PhotoGrid.tsx`
+12.3. `src/components/LoopingVideo.tsx` (reuses `usePrefersReducedMotion` from 7.1)
+12.4. `src/pages/PerformancePage.tsx`
+
+## 13. Directing page (first third-party component)
+Before you start: install `react-lite-youtube-embed` (we'll talk about it first and read its README).
+
+13.1. `src/components/VideoCard.tsx`
+13.2. `src/pages/DirectingPage.tsx`
 
 ## 14. Finish
 14.1. `src/pages/NotFoundPage.tsx`: finish it

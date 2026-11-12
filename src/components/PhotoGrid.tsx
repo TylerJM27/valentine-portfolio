@@ -1,5 +1,5 @@
 /*
-  PhotoGrid — grid of captioned photos (ROADMAP step 10.2)
+  PhotoGrid — grid of captioned photos (ROADMAP step 12.2)
   ========================================================
 
   1. PURPOSE

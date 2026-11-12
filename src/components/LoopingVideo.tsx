@@ -1,5 +1,5 @@
 /*
-  LoopingVideo — muted looping clip with a pause button (ROADMAP step 10.3)
+  LoopingVideo — muted looping clip with a pause button (ROADMAP step 12.3)
   =========================================================================
 
   1. PURPOSE

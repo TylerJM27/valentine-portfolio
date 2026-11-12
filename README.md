@@ -43,11 +43,11 @@ Mirrors [ROADMAP.md](ROADMAP.md).
 - [x] 6. Mobile menu
 - [ ] 7. Home page
 - [ ] 8. First deploy
-- [ ] 9. Design page
-- [ ] 10. Performance page
-- [ ] 11. Directing page
-- [ ] 12. Resume page and contact form
-- [ ] 13. Writing page flipbook
+- [ ] 9. Resume page and contact form
+- [ ] 10. Writing page flipbook
+- [ ] 11. Design page
+- [ ] 12. Performance page
+- [ ] 13. Directing page
 - [ ] 14. Finish
 
 ## What I learned

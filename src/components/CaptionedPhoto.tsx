@@ -1,5 +1,5 @@
 /*
-  CaptionedPhoto — one performance photo with caption (ROADMAP step 10.1)
+  CaptionedPhoto — one performance photo with caption (ROADMAP step 12.1)
   =======================================================================
 
   1. PURPOSE

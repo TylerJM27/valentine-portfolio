@@ -1,5 +1,5 @@
 /*
-  VideoCard — one click-to-load YouTube video (ROADMAP step 11.1)
+  VideoCard — one click-to-load YouTube video (ROADMAP step 13.1)
   ===============================================================
 
   1. PURPOSE

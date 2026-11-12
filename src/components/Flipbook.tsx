@@ -1,5 +1,5 @@
 /*
-  Flipbook — scroll-driven writing packet viewer (ROADMAP step 13.2)
+  Flipbook — scroll-driven writing packet viewer (ROADMAP step 10.2)
   ==================================================================
 
   1. PURPOSE
@@ -21,7 +21,10 @@
   4. STATE
      - trackRef: a ref to the track element (useRef)
      - progress from useScrollProgress(trackRef): a number from 0 to 1
-     - reduceMotion from usePrefersReducedMotion()
+     - reduceMotion from usePrefersReducedMotion(): true if the visitor has
+       "reduce motion" turned on. The hook is already built, in
+       src/hooks/usePrefersReducedMotion.ts (step 7.1). Import it and call
+       it at the top of the component; you don't write it here.
      - The current page is calculated, not stored:
        Math.min(pages.length - 1, Math.floor(progress * pages.length))
 
@@ -41,6 +44,15 @@
      - Preloading: the next page image should already be loading, so flips
        don't show a blank. Render the next page hidden, or use
        `new Image().src`.
+     - Where reduced motion matters here: the Prev/Next scroll (behavior
+       "smooth" normally, "auto" when reduceMotion is true), and any CSS
+       transition you add when the page changes (`motion-reduce:` handles
+       that one in Tailwind, no hook needed).
+     - Page images: pass the width and height from the data (850 × 1100),
+       so the viewer keeps its size while a page loads. Don't put
+       loading="lazy" on the visible page, since the flipbook is near the top
+       of /writing. And never on a hidden preload <img>: a lazy image that's
+       hidden may never load at all, which defeats the preload.
 
   NEW CONCEPTS (first time in this project)
      a) position: sticky
@@ -80,6 +92,38 @@
 
         Docs: https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
 
+     f) Using a custom hook: usePrefersReducedMotion
+        A custom hook is a function starting with "use" that calls other
+        hooks, so components can share logic. This one returns true or false.
+        Inside, it reads the "(prefers-reduced-motion: reduce)" media query
+        with window.matchMedia, through React's useSyncExternalStore. That's
+        why your component re-renders by itself if the visitor changes the
+        setting while the page is open. Its own notes explain each piece.
+
+          const reduceMotion = usePrefersReducedMotion();
+          const fadeMs = reduceMotion ? 0 : 400;   // skip the fade if asked
+
+        Test it: Chrome DevTools > Rendering > "Emulate CSS media feature
+        prefers-reduced-motion".
+
+        Docs: https://react.dev/learn/reusing-logic-with-custom-hooks
+              https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion
+
+     g) Image loading: width/height, loading="lazy", and when not to
+        width and height (in pixels) let the browser reserve the image's
+        space before it downloads, so nothing jumps. loading="lazy" waits
+        until the image is near the screen: good far down a page, bad for
+        images people see right away. (DesignPieceCard's notes cover lazy
+        images again, with <figure>.)
+
+          <img src="/hero.webp" alt="..." width={1600} height={900} />
+            // near the top: load right away (the default)
+          <img src="/thumb-12.webp" alt="..." width={400} height={300} loading="lazy" />
+            // far down a gallery: wait until it's close
+
+        Docs: https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading
+              https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#loading
+
   6. STYLING
      - Track: `relative`, with its height set from the page count (an inline
        style is fine for a computed value).
@@ -93,18 +137,21 @@
      - PDF link: big and obvious, e.g. "Read the full packet (PDF)".
 
   7. BUILD STEPS
-     1. Show page 1 only, plus the PDF link. That's the fallback, done first.
+     1. Show page 1 only (with width and height from the data), plus the PDF
+        link. That's the fallback, done first.
      2. Add the tall track and sticky viewer. Scroll and check the viewer
         stays put.
      3. Connect useScrollProgress and calculate the current page.
      4. Add the "Page X of 15" live region.
      5. Add Prev/Next that scroll to the right spot. Disable them at the
         ends.
-     6. Preload the next page.
+     6. Preload the next page (no loading="lazy" on it).
      7. Tune the track height on a phone and a laptop.
 
   8. YOUR TURN
-     All of it, one step at a time. Step 5's math is the trickiest part;
+     Before starting, read the notes in src/hooks/usePrefersReducedMotion.ts.
+     Claude wrote that hook, so ask about anything in it that's unclear.
+     Then all of it, one step at a time. Step 5's math is the trickiest part;
      work it out on paper first (track top + page fraction × scrollable
      distance).
 
@@ -114,5 +161,7 @@
      - Prev/Next move exactly one page, and the scroll position matches.
      - A screen reader hears "Page 5 of 15" after pressing Next.
      - With reduced motion, the buttons jump instead of smooth-scrolling.
+     - With DevTools > Network throttled to "Slow 3G", the viewer doesn't
+       jump in size when a new page loads.
      - The PDF link works without JavaScript tricks.
 */

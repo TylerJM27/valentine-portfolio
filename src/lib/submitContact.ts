@@ -1,5 +1,5 @@
 /*
-  submitContact — sends the contact form (ROADMAP step 12.1)
+  submitContact — sends the contact form (ROADMAP step 9.1)
   ==========================================================
 
   1. PURPOSE

@@ -10,7 +10,7 @@ export function PerformancePage() {
 }
 
 /*
-  PerformancePage — "/performance" (stub in ROADMAP step 4.4, built in step 10.4)
+  PerformancePage — "/performance" (stub in ROADMAP step 4.4, built in step 12.4)
   ===============================================================================
 
   1. PURPOSE
@@ -45,7 +45,7 @@ export function PerformancePage() {
 
   7. BUILD STEPS
      1. (Step 4.4) Stub: <title> and <h1>.
-     2. (Step 10.4) Add PhotoGrid with the data.
+     2. (Step 12.4) Add PhotoGrid with the data.
      3. Add LoopingVideo above it.
      4. Decide how to show the h1.
 

@@ -10,7 +10,7 @@ export function ResumePage() {
 }
 
 /*
-  ResumePage — "/resume" (stub in ROADMAP step 4.4, built in step 12.3)
+  ResumePage — "/resume" (stub in ROADMAP step 4.4, built in step 9.3)
   =====================================================================
 
   1. PURPOSE
@@ -82,7 +82,7 @@ export function ResumePage() {
 
   7. BUILD STEPS
      1. (Step 4.4) Stub: <title> and <h1>.
-     2. (Step 12.3) Add the download link.
+     2. (Step 9.3) Add the download link.
      3. Map the sections and entries.
      4. Add the contact section with <ContactForm />.
 

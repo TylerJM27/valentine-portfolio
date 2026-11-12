@@ -1,5 +1,5 @@
 /*
-  useScrollProgress — how far through an element you've scrolled (ROADMAP step 13.1)
+  useScrollProgress — how far through an element you've scrolled (ROADMAP step 10.1)
   ==================================================================================
 
   1. PURPOSE

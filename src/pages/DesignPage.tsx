@@ -10,7 +10,7 @@ export function DesignPage() {
 }
 
 /*
-  DesignPage — "/design" (stub in ROADMAP step 4.4, built in step 9.2)
+  DesignPage — "/design" (stub in ROADMAP step 4.4, built in step 11.2)
   ====================================================================
 
   1. PURPOSE
@@ -54,7 +54,7 @@ export function DesignPage() {
 
   7. BUILD STEPS
      1. (Step 4.4) Stub: <title> and <h1>.
-     2. (Step 9.2) Import designPieces and map to <li><DesignPieceCard /></li>
+     2. (Step 11.2) Import designPieces and map to <li><DesignPieceCard /></li>
         with key = id.
      3. Add spacing, and optionally the alternating layout.
 

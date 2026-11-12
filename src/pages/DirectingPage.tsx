@@ -10,7 +10,7 @@ export function DirectingPage() {
 }
 
 /*
-  DirectingPage — "/directing" (stub in ROADMAP step 4.4, built in step 11.2)
+  DirectingPage — "/directing" (stub in ROADMAP step 4.4, built in step 13.2)
   ===========================================================================
 
   1. PURPOSE
@@ -39,7 +39,7 @@ export function DirectingPage() {
 
   7. BUILD STEPS
      1. (Step 4.4) Stub: <title> and <h1>.
-     2. (Step 11.2) Map directingVideos to <li><VideoCard /></li> inside a
+     2. (Step 13.2) Map directingVideos to <li><VideoCard /></li> inside a
         <ul>, with key = id.
      3. Add the grid.
 

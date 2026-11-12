@@ -1,5 +1,5 @@
 /*
-  DesignPieceCard — one design piece (ROADMAP step 9.1)
+  DesignPieceCard — one design piece (ROADMAP step 11.1)
   =====================================================
 
   1. PURPOSE

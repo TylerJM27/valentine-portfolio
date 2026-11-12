@@ -1,5 +1,5 @@
 /*
-  ContactForm — inquiries form at the bottom of /resume (ROADMAP step 12.2)
+  ContactForm — inquiries form at the bottom of /resume (ROADMAP step 9.2)
   =========================================================================
 
   1. PURPOSE
