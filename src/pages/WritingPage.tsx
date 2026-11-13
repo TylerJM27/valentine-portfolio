@@ -1,10 +1,43 @@
+import { Flipbook } from "../components/Flipbook";
+import { Exclamation } from "../components/doodles/Exclamation";
+import { Spiral } from "../components/doodles/Spiral";
+import { SquareSpiral } from "../components/doodles/SquareSpiral";
+import { Star } from "../components/doodles/Star";
+import { writingPacket } from "../data/writing";
+
+// Side doodles only show from lg up, either side of the flipbook page.
+const sideDoodle = "hidden lg:block absolute motion-reduce:animate-none";
+
 export function WritingPage() {
     return (
-        <div>
-            <title>Writing Page</title>
-            <h1 className="flex justify-center text-5xl font-display text-white">
-                Writing Page
-            </h1>
+        <div className="relative py-8 pb-24 space-y-6">
+            <title>Writing · Lily Valentine</title>
+
+            <Exclamation className={`${sideDoodle} top-10 right-8 w-20 text-lime rotate-12 animate-float`} />
+            <SquareSpiral className={`${sideDoodle} top-[22%] left-6 size-16 text-orange -rotate-6 animate-float [animation-delay:-2s]`} />
+            <Spiral className={`${sideDoodle} top-[34%] right-10 size-24 text-orange animate-spin-slow`} />
+            <Star className={`${sideDoodle} top-[50%] left-12 size-14 text-lime -rotate-12 animate-float [animation-delay:-4s]`} />
+            <Star className={`${sideDoodle} top-[63%] right-20 size-10 text-lime rotate-6 animate-float [animation-delay:-1s]`} />
+            <Spiral className={`${sideDoodle} top-[76%] left-8 size-16 text-lime animate-spin-slow [animation-direction:reverse]`} />
+            <SquareSpiral className={`${sideDoodle} top-[88%] right-12 size-12 text-orange rotate-12 animate-float [animation-delay:-3s]`} />
+
+            <div className="flex items-center gap-3">
+                <h1 className="font-display text-white text-5xl">Writing</h1>
+                <Exclamation className="w-6 text-lime rotate-12 animate-float motion-reduce:animate-none" />
+                <SquareSpiral className="size-7 text-orange -rotate-6 animate-spin-slow motion-reduce:animate-none" />
+            </div>
+            <div className="max-w-prose text-lg leading-relaxed space-y-3">
+                <p>
+                    A packet of short comedic scripts and one song: Halloween, Pants
+                    to Prom, Gay And Boring, Wrigleyville Speed Dating, and Shotta
+                    Pink Whitney.
+                </p>
+                <p>
+                    Scroll down to flip through the pages, or use the Prev and Next
+                    buttons. The full packet is also available as a PDF.
+                </p>
+            </div>
+            <Flipbook packet={writingPacket} />
         </div>
     );
 }

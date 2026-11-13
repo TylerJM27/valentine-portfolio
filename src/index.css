@@ -7,6 +7,29 @@
     --color-orange: #f5a04a;
     --font-display: Gloria Hallelujah, cursive;
     --font-body: Atkinson Hyperlegible Next, sans-serif;
+
+    --animate-float: float 6s ease-in-out infinite;
+    --animate-spin-slow: spin 24s linear infinite;
+    --animate-marquee: marquee 60s linear infinite;
+
+    @keyframes float {
+        0%,
+        100% {
+            translate: 0 0;
+        }
+        50% {
+            translate: 0 -12px;
+        }
+    }
+
+    @keyframes marquee {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+    }
 }
 
 @layer base {

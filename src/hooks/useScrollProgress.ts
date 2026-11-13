@@ -1,3 +1,43 @@
+import { useEffect, useState } from "react";
+import type { RefObject } from "react";
+
+export function useScrollProgress(ref: RefObject<HTMLElement | null>) {
+    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+        let frame = 0;
+
+        function update() {
+            frame = 0;
+            const element = ref.current;
+            if (!element) return;
+
+            const rect = element.getBoundingClientRect();
+            const scrollable = rect.height - window.innerHeight;
+            const raw = scrollable > 0 ? -rect.top / scrollable : 0;
+            setProgress(Math.min(1, Math.max(0, raw)));
+        }
+
+        function schedule() {
+            if (frame) return;
+            frame = requestAnimationFrame(update);
+        }
+
+        // The first measurement is scheduled too, so it's right on load.
+        schedule();
+        window.addEventListener("scroll", schedule, { passive: true });
+        window.addEventListener("resize", schedule);
+
+        return () => {
+            window.removeEventListener("scroll", schedule);
+            window.removeEventListener("resize", schedule);
+            cancelAnimationFrame(frame);
+        };
+    }, [ref]);
+
+    return progress;
+}
+
 /*
   useScrollProgress — how far through an element you've scrolled (ROADMAP step 10.1)
   ==================================================================================

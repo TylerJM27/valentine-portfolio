@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import { Link } from "react-router";
 import type { SocialLink, SocialPlatform } from "../data/types";
 import { EmailIcon } from "./icons/EmailIcon";
 import { InstagramIcon } from "./icons/InstagramIcon";
@@ -13,15 +14,24 @@ const platformIcons: Record<
     email: EmailIcon,
 };
 
+const linkStyles =
+    "inline-flex size-11 items-center justify-center text-white hover:rotate-6 transition-transform motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2";
+
 export function SocialIconLink({ link }: Props) {
     const Icon = platformIcons[link.platform];
 
+    // Paths inside the site ("/resume#contact") use the router, so the page
+    // doesn't reload. Everything else (https:, mailto:) is a normal link.
+    if (link.href.startsWith("/")) {
+        return (
+            <Link to={link.href} aria-label={link.label} className={linkStyles}>
+                <Icon className="size-7" />
+            </Link>
+        );
+    }
+
     return (
-        <a
-            href={link.href}
-            aria-label={link.label}
-            className="inline-flex size-11 items-center justify-center text-white hover:rotate-6 transition-transform motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
-        >
+        <a href={link.href} aria-label={link.label} className={linkStyles}>
             <Icon className="size-7" />
         </a>
     );

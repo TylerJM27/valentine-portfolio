@@ -1,13 +1,100 @@
 import { ContactForm } from "../components/ContactForm";
+import { Exclamation } from "../components/doodles/Exclamation";
+import { Spiral } from "../components/doodles/Spiral";
+import { SquareSpiral } from "../components/doodles/SquareSpiral";
+import { Star } from "../components/doodles/Star";
+import { resume } from "../data/resume";
+
+const sectionHeadingStyles = "font-display text-white text-3xl";
+
+// Side doodles only show from lg up, where they sit in the margins.
+const sideDoodle = "hidden lg:block absolute motion-reduce:animate-none";
 
 export function ResumePage() {
     return (
-        <div>
-            <title>Resume Page</title>
-            <h1 className="flex justify-center text-5xl font-display text-white">
-                Resume Page
-            </h1>
-            <ContactForm />
+        <div className="relative max-w-3xl mx-auto py-8 space-y-10">
+            <title>Resume · Lily Valentine</title>
+
+            <Star className={`${sideDoodle} top-28 -left-28 size-16 text-lime rotate-12 animate-float`} />
+            <Spiral className={`${sideDoodle} top-[22%] -right-28 size-20 text-orange animate-spin-slow`} />
+            <SquareSpiral className={`${sideDoodle} top-[42%] -left-24 size-12 text-orange -rotate-12 animate-float [animation-delay:-2s]`} />
+            <Exclamation className={`${sideDoodle} top-[60%] -right-24 w-12 text-lime rotate-12 animate-float [animation-delay:-4s]`} />
+            <Spiral className={`${sideDoodle} top-[78%] -left-24 size-10 text-lime animate-spin-slow [animation-direction:reverse]`} />
+            <Star className={`${sideDoodle} bottom-16 -right-24 size-10 text-orange -rotate-12 animate-float [animation-delay:-3s]`} />
+
+            <header className="space-y-4">
+                <div className="flex items-center gap-3">
+                    <h1 className="font-display text-white text-5xl">Resume</h1>
+                    <Star className="size-9 text-lime rotate-12 animate-float motion-reduce:animate-none" />
+                    <Spiral className="size-7 text-orange animate-spin-slow motion-reduce:animate-none" />
+                </div>
+                {resume.headline && (
+                    <p className="text-xl font-bold">{resume.headline}</p>
+                )}
+                {resume.summary && (
+                    <p className="text-lg leading-relaxed max-w-prose">
+                        {resume.summary}
+                    </p>
+                )}
+                {resume.details && (
+                    <ul className="flex flex-wrap gap-x-6 gap-y-1">
+                        {resume.details.map((detail) => (
+                            <li key={detail}>{detail}</li>
+                        ))}
+                    </ul>
+                )}
+                <a
+                    href={resume.pdfUrl}
+                    download
+                    className="inline-flex min-h-11 items-center rounded-md bg-plum px-5 font-display text-xl text-white hover:-rotate-2 transition-transform motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+                >
+                    Download resume (PDF)
+                </a>
+            </header>
+
+            {resume.sections.map((section) => (
+                <section
+                    key={section.id}
+                    aria-labelledby={`${section.id}-heading`}
+                    className="space-y-3"
+                >
+                    <h2 id={`${section.id}-heading`} className={sectionHeadingStyles}>
+                        {section.heading}
+                    </h2>
+                    <ul className="space-y-3 sm:space-y-2">
+                        {section.entries.map((entry) => (
+                            <li
+                                key={entry.id}
+                                className="sm:grid sm:grid-cols-[2fr_1.5fr_2fr_7rem] sm:gap-x-4"
+                            >
+                                <span
+                                    className={`block font-bold ${entry.role || entry.organization || entry.year ? "" : "sm:col-span-4 sm:font-normal"}`}
+                                >
+                                    {entry.title}
+                                </span>
+                                {entry.role && (
+                                    <span className="block sm:col-start-2">{entry.role}</span>
+                                )}
+                                {entry.organization && (
+                                    <span className="block sm:col-start-3">
+                                        {entry.organization}
+                                    </span>
+                                )}
+                                {entry.year && (
+                                    <span className="block sm:col-start-4">{entry.year}</span>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+            ))}
+
+            <section id="contact" aria-labelledby="contact-heading" className="space-y-4">
+                <h2 id="contact-heading" className={sectionHeadingStyles}>
+                    Get in touch
+                </h2>
+                <ContactForm />
+            </section>
         </div>
     );
 }

@@ -2,40 +2,114 @@ import type { DesignPiece } from "./types";
 
 export const designPieces: DesignPiece[] = [
     {
-        id: "design-piece-1",
-        title: "Design Piece 1",
+        id: "unicorn",
+        title: "Unicorn",
         image: {
-            src: "/placeholders/placeholder-image-1.webp",
-            alt: "Lily, in oversized red glasses and a black leather jacket, leans over a black railing and bares her teeth under a stage light, with a brick wall behind her.",
-            width: 1600,
-            height: 1280,
+            src: "/design/unicorn.webp",
+            alt: "Poster on black. Giant pink-outlined letters spell UNICORN, each filled with close-up photos of a glitter-covered face: eyes, teeth and lips. Text: glitter, karaoke, and learning how to be your own best friend. A solo experience by Lily Valentine. January 16, 10:15 pm, Annoyance Cabaret Stage.",
+            width: 675,
+            height: 900,
         },
-        description:
-            "I drew the whole poster by hand, title included, then scanned it and added one flat color. The show is about a family that won’t stop talking over each other, so the lettering crowds the edges and nothing gets its own space.",
+        description: "Poster for Unicorn, Lily's solo show at MessFest.",
     },
     {
-        id: "design-piece-2",
-        title: "Design Piece 2",
+        id: "protect-bad-drag",
+        title: "Protect Bad Drag!",
         image: {
-            src: "/placeholders/placeholder-image-2.webp",
-            alt: "Three performers sit at a long desk beneath a large projected photo. Lily, on the right in a green blazer and red glasses, looks toward the audience with a sly expression while the performer in the center reads from a stack of papers.",
-            width: 1600,
-            height: 1067,
+            src: "/design/protect-bad-drag.webp",
+            alt: "Glitchy neon-green collage poster with halftone cut-outs of eyes, ears, pointing hands and a shouting mouth in a megaphone, which blasts a pink banner. Text: Protect Bad Drag! January 15th, 11:45 PM. A messy drag show for the people. Annoyance Mainstage, messfestcomedy.com.",
+            width: 675,
+            height: 900,
         },
-        description:
-            "A 12-page zine of things strangers said on my commute, each with a drawing of how I pictured the conversation going. Printed on pink paper at the library and folded by hand, about 50 copies.",
+        description: "Poster for a drag show at MessFest.",
     },
     {
-        id: "design-piece-3",
-        title: "Design Piece 3",
+        id: "ttsnl",
+        title: "TTSNL",
         image: {
-            src: "/placeholders/placeholder-image-3.webp",
-            alt: "Lily stands alone in a spotlight against a black background, wearing an oversized red suit and a lavender tie, hands raised mid-sentence as she speaks toward a music stand.",
-            width: 900,
-            height: 1600,
+            src: "/design/ttsnl.webp",
+            alt: "Pencil-and-colored-pencil drawing of a Chicago L train coming down the tracks between buildings, with giant retro 3D letters reading TTSNL streaming across the top. Text: The Theatre School's Premiere Late Night Sketch Comedy Show. Featuring Tanner Devore, Jules Astaire. May 8th, 7:30 PM, Watts Theatre. A QR code sits in the corner.",
+            width: 675,
+            height: 900,
         },
-        description:
-            "A logo, a social graphic template and a printed program for a monthly comedy show. The organizers wanted it to look homemade on purpose, so everything is built from cut-paper shapes and a typewriter font.",
+        description: "Poster for TTSNL, the live sketch show Lily head-wrote and directed.",
+    },
+    {
+        id: "bush-january",
+        title: "BUSH (January)",
+        image: {
+            src: "/design/bush-january.webp",
+            alt: "Peach poster. The word BUSH is drawn in fuzzy black hair above a hand holding up a blue razor clogged with hair. Text: A Lesbian Sketch Show. Jan 15, 6:15 PM, Annoyance Mainstage.",
+            width: 674,
+            height: 900,
+        },
+        description: "Poster for BUSH, the lesbian sketch group Lily co-created.",
+    },
+    {
+        id: "bush-september",
+        title: "BUSH (September)",
+        image: {
+            src: "/design/bush-september.webp",
+            alt: "Drawing of hands unzipping dark jeans to show pink underwear, with BUSH scrawled across it in red. The belly reads: The L comes first! Text: A Lesbian Sketch Show. September 25th, 8 pm, Annoyance Theatre Main Stage.",
+            width: 675,
+            height: 900,
+        },
+        description: "A second poster for BUSH, for its September show.",
+    },
+    {
+        id: "best-policy",
+        title: "The Best Policy",
+        image: {
+            src: "/design/best-policy.webp",
+            alt: "Photo of Lily in a hot-pink blazer, blue tie and red glasses talking on a phone in front of Chicago skyscrapers, with hand-drawn flames, a green monster shooting lasers and a UFO doodled over the city. Text: The Best Policy, by Lily Valentine. Sundays 8pm, Annoyance Theatre, April 19 - May 10.",
+            width: 675,
+            height: 900,
+        },
+        description: "Poster for The Best Policy, Lily's solo show about the importance of gossip.",
+    },
+    {
+        id: "messfest",
+        title: "MessFest",
+        image: {
+            src: "/design/messfest.webp",
+            alt: "Pen drawing of the march-of-progress evolution line, from ape to human, ending with the human slipping on a banana peel. MESSFEST is lettered above in chunky yellow wooden-plank letters. Text: January 14-17, 2026 C.E., Annoyance Theatre + Bar.",
+            width: 1625,
+            height: 900,
+        },
+        description: "Poster for MessFest, the student-run comedy festival at The Annoyance.",
+    },
+    {
+        id: "grad-showcase",
+        title: "2026 Comedy Arts Grad Showcase",
+        image: {
+            src: "/design/grad-showcase.webp",
+            alt: "Drawing on lined notebook paper. The words Comedy Arts Grad are in big bubble letters, each letter filled with a pencil portrait of a graduating student, surrounded by small colored doodles like a school bus, a pickle, a dog, pancakes and a bird. Text: 2026 Comedy Arts Grad Showcase.",
+            width: 1200,
+            height: 900,
+        },
+        description: "Poster for the 2026 Comedy Arts graduating class showcase.",
+    },
+    {
+        id: "baggage",
+        title: "Baggage",
+        image: {
+            src: "/design/baggage.webp",
+            alt: "A tall stack of colorful hand-drawn suitcases, with a bra and a tie spilling out. Text on the suitcases: A new play by Jesse Swanson + Riley Woollen. Baggage, a comedic farce. 5/1, 5/8, 5/15, 5/22, 7:30 in Studio 408. Director Jesse Swanson, Assistant Director Ella Carey, Stage Manager Ally Montgomery.",
+            width: 675,
+            height: 900,
+        },
+        description: "Poster for Baggage, a new comedic farce.",
+    },
+    {
+        id: "collective-rage",
+        title: "Collective Rage",
+        image: {
+            src: "/design/collective-rage.webp",
+            alt: "Pink painted poster of a huge open mouth biting down on a red boxing glove, speckled with red paint. Ransom-note letters spell Collective Rage. Text: A Play in 5 Betties, by Jen Silverman. Mondays 6:30, April 27 - June 1, Annoyance Theater. Directed by Arti Ishak, Asst. Directed by Orrie Rindal.",
+            width: 675,
+            height: 900,
+        },
+        description: "Poster for Collective Rage: A Play in 5 Betties.",
     },
 ];
 

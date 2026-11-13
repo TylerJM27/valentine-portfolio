@@ -73,6 +73,9 @@ export type ResumeSection = {
 
 export type ResumeData = {
     pdfUrl: string;
+    headline?: string;
+    summary?: string;
+    details?: string[];
     sections: ResumeSection[];
 };
 
@@ -161,6 +164,9 @@ export type NavItem = {
        entries: ResumeEntry[]
      ResumeData
        pdfUrl: string
+       headline?: string      e.g. "Writer, Performer, Producer, Comedian"
+       summary?: string       the short paragraph under the name
+       details?: string[]     e.g. "Height: 5'6", "Voice: Mezzo/Soprano"
        sections: ResumeSection[]
 
      NavItem              one nav link

@@ -4,13 +4,15 @@ import { Header } from "./Header";
 
 export function Layout() {
     return (
-        <div className="min-h-svh bg-pink text-plum font-body max-w-6xl mx-auto px-4 sm:px-6 overflow-x-clip">
-            <SkipLink />
-            <Header />
-            <main id="content" tabIndex={-1}>
-                <ScrollRestoration />
-                <Outlet />
-            </main>
+        <div className="min-h-svh bg-pink text-plum font-body overflow-x-clip">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6">
+                <SkipLink />
+                <Header />
+                <main id="content" tabIndex={-1}>
+                    <ScrollRestoration />
+                    <Outlet />
+                </main>
+            </div>
         </div>
     );
 }

@@ -1,3 +1,99 @@
+import { useEffect, useRef } from "react";
+import type { WritingPacket } from "../data/types";
+import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
+import { useScrollProgress } from "../hooks/useScrollProgress";
+
+type Props = { packet: WritingPacket };
+
+// How much extra scrolling each page gets. Bigger feels slower; too big
+// feels stuck.
+const VH_PER_PAGE = 18;
+
+const buttonStyles =
+    "min-h-11 px-4 rounded-md bg-plum text-white font-display text-xl focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 aria-disabled:opacity-50 aria-disabled:cursor-not-allowed";
+
+export function Flipbook({ packet }: Props) {
+    const trackRef = useRef<HTMLDivElement>(null);
+    const progress = useScrollProgress(trackRef);
+    const reduceMotion = usePrefersReducedMotion();
+
+    const pages = packet.pages;
+    const current = Math.min(pages.length - 1, Math.floor(progress * pages.length));
+    const page = pages[current];
+    const isFirst = current === 0;
+    const isLast = current === pages.length - 1;
+
+    // Start downloading the neighbouring pages so a flip never shows a blank.
+    useEffect(() => {
+        for (const neighbour of [pages[current - 1], pages[current + 1]]) {
+            if (neighbour) new Image().src = neighbour.src;
+        }
+    }, [current, pages]);
+
+    // Buttons scroll to the middle of a page's slice of the track, so the
+    // scroll position and the page shown never disagree.
+    function goToPage(index: number) {
+        const track = trackRef.current;
+        if (!track || index < 0 || index >= pages.length) return;
+
+        const rect = track.getBoundingClientRect();
+        const trackTop = rect.top + window.scrollY;
+        const scrollable = rect.height - window.innerHeight;
+        window.scrollTo({
+            top: trackTop + ((index + 0.5) / pages.length) * scrollable,
+            behavior: reduceMotion ? "auto" : "smooth",
+        });
+    }
+
+    return (
+        <div className="space-y-3">
+            <a
+                href={packet.pdfUrl}
+                className="inline-flex min-h-11 items-center rounded-md bg-plum px-5 font-display text-xl text-white hover:-rotate-2 transition-transform motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+            >
+                Read the full packet (PDF)
+            </a>
+
+            <div
+                ref={trackRef}
+                className="relative"
+                style={{ height: `calc(100svh + ${pages.length * VH_PER_PAGE}vh)` }}
+            >
+                <div className="sticky top-0 h-svh flex flex-col items-center justify-start gap-4 pt-2 pb-4">
+                    <img
+                        src={page.src}
+                        alt={page.alt}
+                        width={page.width}
+                        height={page.height}
+                        className={`max-h-[70svh] w-auto max-w-full h-auto object-contain bg-white shadow-xl ${current % 2 === 0 ? "-rotate-1" : "rotate-1"}`}
+                    />
+                    <div className="flex items-center gap-4">
+                        <button
+                            type="button"
+                            aria-disabled={isFirst}
+                            onClick={() => goToPage(current - 1)}
+                            className={buttonStyles}
+                        >
+                            Prev
+                        </button>
+                        <p role="status" className="font-bold min-w-[8ch] text-center">
+                            Page {current + 1} of {pages.length}
+                        </p>
+                        <button
+                            type="button"
+                            aria-disabled={isLast}
+                            onClick={() => goToPage(current + 1)}
+                            className={buttonStyles}
+                        >
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 /*
   Flipbook — scroll-driven writing packet viewer (ROADMAP step 10.2)
   ==================================================================

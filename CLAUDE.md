@@ -28,7 +28,7 @@ Routes, in the sketch's nav order. Use this order unless I change it.
 
 - `/resume`: link to download the resume, the resume visible on the page, and the contact form at the bottom of the page
 - `/performance`: looping video at the very top of the page (muted, autoplay, loop, playsInline, with a visible pause button), photos with captions below
-- `/writing`: a 15-page writing packet shown as a scroll-driven flipbook. As I scroll over it, it flips through the pages. Needs a non-scroll fallback (link to the full PDF).
+- `/writing`: a 20-page writing packet shown as a scroll-driven flipbook. As I scroll over it, it flips through the pages. Needs a non-scroll fallback (link to the full PDF).
 - `/directing`: several YouTube videos. Each loads on click, using `react-lite-youtube-embed`: a thumbnail with a play button, and the real player loads only after the click.
 - `/design`: graphic design pieces, each an image with a description
 - `/` Home: headshot and bio, plus a resume link and social links as SVG icons (see "Visual direction")

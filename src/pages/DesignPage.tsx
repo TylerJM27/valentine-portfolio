@@ -1,10 +1,49 @@
+import { useState } from "react";
+import { PosterMarquee } from "../components/PosterMarquee";
+import { Spiral } from "../components/doodles/Spiral";
+import { Star } from "../components/doodles/Star";
+import { designPieces } from "../data/designPieces";
+import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
+
+const half = Math.ceil(designPieces.length / 2);
+const topRow = designPieces.slice(0, half);
+const bottomRow = designPieces.slice(half);
+
 export function DesignPage() {
+    const [paused, setPaused] = useState(false);
+    const reduceMotion = usePrefersReducedMotion();
+
     return (
-        <div>
-            <title>Design Page</title>
-            <h1 className="flex justify-center text-5xl font-display text-white">
-                Design Page
-            </h1>
+        <div className="py-8 pb-16 space-y-6">
+            <title>Design · Lily Valentine</title>
+
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
+                <div className="flex items-center gap-3">
+                    <h1 className="font-display text-white text-5xl">Design</h1>
+                    <Star className="size-9 text-lime -rotate-12 animate-float motion-reduce:animate-none" />
+                    <Spiral className="size-7 text-orange animate-spin-slow motion-reduce:animate-none" />
+                </div>
+                {!reduceMotion && (
+                    <button
+                        type="button"
+                        aria-pressed={paused}
+                        onClick={() => setPaused((p) => !p)}
+                        className="min-h-11 px-5 rounded-md bg-plum text-white font-display text-xl focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+                    >
+                        {paused ? "Play posters" : "Pause posters"}
+                    </button>
+                )}
+            </div>
+            <p className="max-w-prose text-lg">
+                Posters and show art, mostly hand-drawn.
+                {!reduceMotion && " Hover over a row to pause it."}
+            </p>
+
+            {/* Full-bleed: break out of the page's max width to the screen edges. */}
+            <div className="relative left-1/2 w-screen -ml-[50vw] space-y-4">
+                <PosterMarquee pieces={topRow} direction="right" paused={paused} eager />
+                <PosterMarquee pieces={bottomRow} direction="left" paused={paused} />
+            </div>
         </div>
     );
 }
