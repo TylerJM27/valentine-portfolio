@@ -1,3 +1,109 @@
+import type { ContactMessage } from "../lib/submitContact";
+import type { SubmitEvent } from "react";
+import { submitContact } from "../lib/submitContact";
+import { useState } from "react";
+
+export function ContactForm() {
+    const [values, setValues] = useState<ContactMessage>({
+        name: "",
+        email: "",
+        message: "",
+        honeypot: false,
+    });
+    const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+        "idle",
+    );
+    const [errorMessage, setErrorMessage] = useState("");
+
+    let formText = "";
+    if (status === "sent") {
+        formText = "Thanks! Your message is on its way to Lily.";
+    } else if (status === "error") {
+        formText = errorMessage;
+    }
+
+    async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+        event.preventDefault();
+        setStatus("sending");
+        const formResponse = await submitContact(values);
+        if (formResponse.ok) {
+            setStatus("sent");
+            setValues({ name: "", email: "", message: "", honeypot: false });
+        } else {
+            setErrorMessage(formResponse.error);
+            setStatus("error");
+        }
+    }
+
+    return (
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-xl">
+            <label htmlFor="name" className="font-body font-bold text-plum">
+                Name
+            </label>
+            <input
+                id="name"
+                value={values.name}
+                onChange={(event) =>
+                    setValues({ ...values, name: event.target.value })
+                }
+                name="name"
+                type="text"
+                autoComplete="name"
+                required
+                className="bg-white text-plum border-plum border-2 px-3 py-2 rounded-md focus-visible:outline-3"
+            />
+            <label htmlFor="email" className="font-body font-bold text-plum">
+                Email
+            </label>
+            <input
+                id="email"
+                value={values.email}
+                onChange={(event) =>
+                    setValues({ ...values, email: event.target.value })
+                }
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="bg-white text-plum border-plum border-2 px-3 py-2 rounded-md focus-visible:outline-3"
+            />
+            <label htmlFor="message" className="font-body font-bold text-plum">
+                What's On Your Mind?
+            </label>
+            <textarea
+                id="message"
+                value={values.message}
+                onChange={(event) =>
+                    setValues({ ...values, message: event.target.value })
+                }
+                name="message"
+                required
+                className="bg-white text-plum border-plum border-2 px-3 py-2 rounded-md focus-visible:outline-3"
+            />
+            <input
+                type="checkbox"
+                name="botcheck"
+                hidden
+                autoComplete="off"
+                tabIndex={-1}
+                checked={values.honeypot}
+                onChange={(event) =>
+                    setValues({ ...values, honeypot: event.target.checked })
+                }
+            />
+            <button
+                type="submit"
+                disabled={status === "sending"}
+                className="px-6 font-display min-h-11 text-white bg-plum rounded-md text-xl disabled:opacity-60"
+            >
+                {status === "sending" ? "Sending..." : "Send"}
+            </button>
+            <p role="status" className="text-plum font-body font-bold">
+                {formText}
+            </p>
+        </form>
+    );
+}
 /*
   ContactForm — inquiries form at the bottom of /resume (ROADMAP step 9.2)
   =========================================================================

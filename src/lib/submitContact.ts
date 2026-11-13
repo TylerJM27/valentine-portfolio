@@ -1,3 +1,57 @@
+export type SubmitResult = { ok: true } | { ok: false; error: string };
+export type ContactMessage = {
+    name: string;
+    email: string;
+    message: string;
+    honeypot?: boolean;
+};
+type EmailReply = { success: boolean; body: { data: object; message: string } };
+
+export async function submitContact(
+    contact: ContactMessage,
+): Promise<SubmitResult> {
+    const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
+
+    if (!accessKey) {
+        return {
+            ok: false,
+            error: "The form isn't working right now. Please try again later.",
+        };
+    }
+
+    try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({
+                access_key: accessKey,
+                name: contact.name,
+                email: contact.email,
+                message: contact.message,
+                botcheck: contact.honeypot,
+            }),
+        });
+        const reply: EmailReply = await response.json();
+
+        if (reply.success) {
+            return { ok: true };
+        } else {
+            return {
+                ok: false,
+                error: "Unfortunately your message could not be delivered",
+            };
+        }
+    } catch (error) {
+        console.error(error);
+        return {
+            ok: false,
+            error: "Couldn't reach the server. Check your connection and try again.",
+        };
+    }
+}
 /*
   submitContact — sends the contact form (ROADMAP step 9.1)
   ==========================================================

@@ -1,3 +1,5 @@
+import { ContactForm } from "../components/ContactForm";
+
 export function ResumePage() {
     return (
         <div>
@@ -5,6 +7,7 @@ export function ResumePage() {
             <h1 className="flex justify-center text-5xl font-display text-white">
                 Resume Page
             </h1>
+            <ContactForm />
         </div>
     );
 }
