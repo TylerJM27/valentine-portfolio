@@ -1,10 +1,58 @@
+import { Link, useLocation } from "react-router";
+import { PageHeading } from "../components/PageHeading";
+import { TapedNote } from "../components/TapedNote";
+import { Exclamation } from "../components/doodles/Exclamation";
+import { SquareSpiral } from "../components/doodles/SquareSpiral";
+import { navItems } from "../data/navigation";
+import { dashedButton, plumButton } from "../lib/buttonStyles";
+
 export function NotFoundPage() {
+    // useLocation gives the current URL, so the page can say which address
+    // doesn't exist.
+    const { pathname } = useLocation();
+
     return (
-        <div>
-            <title>Page Not Found</title>
-            <h1 className="flex justify-center text-5xl font-display text-white">
-                Page Not Found
-            </h1>
+        <div className="relative py-8 space-y-10">
+            <title>Page not found · Lily Valentine</title>
+
+            <PageHeading>Page not found</PageHeading>
+
+            <div className="relative max-w-xl">
+                <TapedNote tilt="left" className="text-lg leading-relaxed space-y-2">
+                    <p className="font-bold">Whoops! There’s nothing here.</p>
+                    <p>
+                        There’s no page at <span className="break-all font-bold">{pathname}</span>.
+                        The link might have a typo, or the page may have moved.
+                    </p>
+                </TapedNote>
+                <Exclamation className="hidden sm:block absolute -right-28 top-0 w-16 text-lime rotate-12 animate-float motion-reduce:animate-none" />
+                <SquareSpiral className="hidden sm:block absolute -right-48 bottom-0 size-12 text-orange -rotate-6 animate-wiggle motion-reduce:animate-none" />
+            </div>
+
+            <Link
+                to="/"
+                className={plumButton}
+            >
+                Back to the home page
+            </Link>
+
+            <nav aria-labelledby="not-found-links" className="space-y-3">
+                <h2 id="not-found-links" className="font-display text-white text-3xl">
+                    Or try one of these
+                </h2>
+                <ul className="flex flex-wrap gap-3">
+                    {navItems.map((item) => (
+                        <li key={item.to}>
+                            <Link
+                                to={item.to}
+                                className={dashedButton}
+                            >
+                                {item.label}
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
         </div>
     );
 }

@@ -9,11 +9,10 @@ import { Star } from "../components/doodles/Star";
 import { WavyLine } from "../components/doodles/WavyLine";
 import { currentProjects } from "../data/currentProjects";
 import { profile } from "../data/profile";
+import { plumButton } from "../lib/buttonStyles";
 import { posterMotion } from "../lib/posterMotion";
 
 const sectionHeading = "font-display text-white text-4xl sm:text-5xl leading-tight pb-1";
-const buttonLink =
-    "inline-flex min-h-11 items-center rounded-md bg-plum px-5 font-display text-xl text-white hover:-rotate-2 transition-transform motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2";
 
 export function HomePage() {
     return (
@@ -80,7 +79,7 @@ export function HomePage() {
                             <p key={paragraph}>{paragraph}</p>
                         ))}
                     </div>
-                    <Link to="/resume" className={buttonLink}>
+                    <Link to="/resume" className={plumButton}>
                         See my resume
                     </Link>
                 </div>
@@ -106,7 +105,7 @@ export function HomePage() {
                     <h2 id="right-now-heading" className={sectionHeading}>
                         Right Now
                     </h2>
-                    <Link to="/right-now" className={buttonLink}>
+                    <Link to="/right-now" className={plumButton}>
                         See all shows
                     </Link>
                 </div>

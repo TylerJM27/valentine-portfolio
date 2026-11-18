@@ -1,3 +1,77 @@
+import { useRef } from "react";
+import LiteYouTubeEmbed from "react-lite-youtube-embed";
+import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
+import type { YouTubeVideo } from "../data/types";
+import { TapedNote } from "./TapedNote";
+
+type Props = {
+    video: YouTubeVideo;
+    // Called when the video starts playing, so the page can stop other motion.
+    onPlay?: () => void;
+    // Called when the video is paused or ends.
+    onStop?: () => void;
+};
+
+export function VideoCard({ video, onPlay, onStop }: Props) {
+    const headingId = `${video.id}-title`;
+    // The embed needs a ref to its <iframe> to say "I'm listening" to
+    // YouTube. Without one, YouTube never reports play/pause, and
+    // onPlay/onPause/onEnd never fire.
+    const iframeRef = useRef<HTMLIFrameElement>(null);
+
+    return (
+        // Phones and tablets: title, video, then the description note below.
+        // lg and up: the note sits to the right of the video, like a label
+        // beside a piece in a gallery.
+        <article
+            aria-labelledby={headingId}
+            className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-x-10 lg:items-center"
+        >
+            <h2
+                id={headingId}
+                className="font-display text-white text-3xl sm:text-4xl leading-tight pb-1 lg:col-span-2"
+            >
+                {video.title}
+                {video.year && <span className="text-2xl"> ({video.year})</span>}
+            </h2>
+
+            {/* The frame shows a focus outline when the play button inside
+                it is focused by keyboard. */}
+            <div className="overflow-hidden rounded-xl border-8 border-white bg-plum shadow-2xl has-[:focus-visible]:outline-4 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-white">
+                {/* Only a thumbnail and a play button until it's clicked. The
+                    player then loads from youtube-nocookie.com (cookie={false},
+                    which is also the default), so nothing tracks visitors
+                    until they press play.
+                    enableJsApi lets the player report play/pause/end back to
+                    us, which is what the onPlay/onPause/onEnd props use. */}
+                <LiteYouTubeEmbed
+                    ref={iframeRef}
+                    id={video.youtubeId}
+                    title={video.title}
+                    cookie={false}
+                    webp
+                    lazyLoad
+                    enableJsApi
+                    onPlay={onPlay}
+                    onPause={onStop}
+                    onEnd={onStop}
+                />
+            </div>
+
+            {video.description && (
+                // whitespace-pre-line keeps the line breaks written in the data.
+                <TapedNote
+                    as="p"
+                    tilt="left"
+                    className="mt-4 lg:mt-0 leading-relaxed whitespace-pre-line"
+                >
+                    {video.description}
+                </TapedNote>
+            )}
+        </article>
+    );
+}
+
 /*
   VideoCard — one click-to-load YouTube video (ROADMAP step 13.1)
   ===============================================================

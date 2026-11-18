@@ -2,10 +2,27 @@ import type { ResumeData } from "./types";
 
 export const resume: ResumeData = {
     pdfUrl: "/documents/lily-valentine-resume.pdf",
+    pageImage: {
+        src: "/documents/resume-page-1.webp",
+        alt: "Lily Valentine’s resume. The full text is available under “Read as text” below.",
+        width: 1546,
+        height: 2000,
+    },
+    photo: {
+        image: {
+            src: "/photos/resume-best-policy.webp",
+            alt: "Lily in an oversized coral-red suit, a lavender tie and red heart-shaped glasses, both hands raised mid-gesture as if sharing some juicy gossip.",
+            width: 1200,
+            height: 1600,
+        },
+        caption:
+            "Lily pictured in The Best Policy, a solo show about the importance of gossip that ran for four weeks at the Annoyance in 2026.",
+    },
     headline: "Writer, Performer, Producer, Comedian",
     summary:
         "Lily creates comedy for those who believe they don’t need it. They push for radical honesty from both themselves and the audience. They are creative, embarrassing, and truthful.",
-    details: ["Height: 5’6”", "Voice: Mezzo/Soprano"],
+    // Phone and email appear as on the PDF (Lily's choice).
+    details: ["(503) 969-2320", "lilyvr27@gmail.com", "Height: 5’6”", "Voice: Mezzo/Soprano"],
     sections: [
         {
             id: "sketch",
@@ -179,24 +196,6 @@ export const resume: ResumeData = {
                     title: "Assistant Artistic Director",
                     organization: "MessFest Comedy Festival",
                     year: "2025–2026",
-                },
-            ],
-        },
-        {
-            id: "directing",
-            heading: "Directing",
-            entries: [
-                {
-                    id: "directing-hand2mouth",
-                    title: "Youth Devising Program",
-                    role: "Director/Teaching Artist",
-                    organization: "Hand2Mouth Theatre",
-                },
-                {
-                    id: "directing-oct",
-                    title: "Improv Program",
-                    role: "Director/Teaching Artist",
-                    organization: "Oregon Children’s Theatre",
                 },
             ],
         },

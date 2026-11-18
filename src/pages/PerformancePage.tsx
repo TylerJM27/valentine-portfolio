@@ -1,10 +1,103 @@
+import { useCallback, useState } from "react";
+import { ImageMarquee } from "../components/ImageMarquee";
+import { PageHeading } from "../components/PageHeading";
+import { PauseButton } from "../components/PauseButton";
+import { VideoCard } from "../components/VideoCard";
+import { Exclamation } from "../components/doodles/Exclamation";
+import { Spiral } from "../components/doodles/Spiral";
+import { SquareSpiral } from "../components/doodles/SquareSpiral";
+import { performancePhotos, performanceVideos } from "../data/performance";
+
+const half = Math.ceil(performancePhotos.length / 2);
+const topRow = performancePhotos.slice(0, half);
+const bottomRow = performancePhotos.slice(half);
+
+// Much shorter than the Design rows, so the video stays the focus.
+const rowHeight = "h-32 sm:h-36 lg:h-40";
+// Full-bleed: break out of the page's max width to the screen edges.
+const fullBleed = "relative left-1/2 w-screen -ml-[50vw]";
+
 export function PerformancePage() {
+    // Two separate reasons the rows can be stopped:
+    // - pausedByButton: the visitor pressed "Pause photos".
+    // - pausedForVideo: a video is playing right now.
+    // The rows stop if either is true. Keeping them apart means pausing the
+    // video only restarts the rows if the video is what stopped them.
+    const [pausedByButton, setPausedByButton] = useState(false);
+    const [pausedForVideo, setPausedForVideo] = useState(false);
+    const paused = pausedByButton || pausedForVideo;
+
+    // useCallback keeps these the same function between renders. The video
+    // library re-subscribes to YouTube whenever its callbacks change, so a
+    // new arrow function on every render would make it redo that work.
+    const handleVideoPlay = useCallback(() => setPausedForVideo(true), []);
+    const handleVideoStop = useCallback(() => setPausedForVideo(false), []);
+
+    function togglePause() {
+        if (paused) {
+            // "Play photos" always restarts the rows, even mid-video.
+            setPausedByButton(false);
+            setPausedForVideo(false);
+        } else {
+            setPausedByButton(true);
+        }
+    }
+
     return (
-        <div>
-            <title>Performance Page</title>
-            <h1 className="flex justify-center text-5xl font-display text-white">
-                Performance Page
-            </h1>
+        <div className="relative py-8 space-y-8">
+            <title>Performance · Lily Valentine</title>
+
+            <PageHeading
+                actions={
+                    <PauseButton
+                        paused={paused}
+                        onToggle={togglePause}
+                        label="photos"
+                    />
+                }
+            >
+                Performance
+            </PageHeading>
+
+            <div className={fullBleed}>
+                <ImageMarquee
+                    items={topRow}
+                    direction="right"
+                    paused={paused}
+                    eager
+                    imageHeight={rowHeight}
+                    repeat={3}
+                />
+            </div>
+
+            {/* While a video plays, both photo rows stop; when it's paused or
+                ends, they start again. */}
+            <section
+                aria-label="Videos"
+                className="relative mx-auto max-w-3xl lg:max-w-5xl space-y-16 py-2"
+            >
+                {performanceVideos.map((video) => (
+                    <VideoCard
+                        key={video.id}
+                        video={video}
+                        onPlay={handleVideoPlay}
+                        onStop={handleVideoStop}
+                    />
+                ))}
+                <Spiral className="hidden xl:block absolute top-2 -left-16 size-12 text-lime animate-spin-slow motion-reduce:animate-none" />
+                <SquareSpiral className="hidden xl:block absolute bottom-4 -left-14 size-12 text-orange -rotate-12 animate-wiggle motion-reduce:animate-none" />
+                <Exclamation className="hidden lg:block absolute top-0 right-6 w-12 text-lime rotate-12 animate-float motion-reduce:animate-none" />
+            </section>
+
+            <div className={fullBleed}>
+                <ImageMarquee
+                    items={bottomRow}
+                    direction="left"
+                    paused={paused}
+                    imageHeight={rowHeight}
+                    repeat={3}
+                />
+            </div>
         </div>
     );
 }

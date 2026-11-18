@@ -1,4 +1,5 @@
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
+import { plumButton } from "../lib/buttonStyles";
 
 type Props = {
     paused: boolean;
@@ -18,7 +19,7 @@ export function PauseButton({ paused, onToggle, label }: Props) {
             type="button"
             aria-pressed={paused}
             onClick={onToggle}
-            className="min-h-11 px-5 rounded-md bg-plum text-white font-display text-xl focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+            className={plumButton}
         >
             {paused ? `Play ${label}` : `Pause ${label}`}
         </button>

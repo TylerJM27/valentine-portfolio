@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import type { WritingPacket } from "../data/types";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
+import { plumButton } from "../lib/buttonStyles";
 import { useScrollProgress } from "../hooks/useScrollProgress";
 
 type Props = { packet: WritingPacket };
@@ -49,7 +50,7 @@ export function Flipbook({ packet }: Props) {
         <div className="space-y-3">
             <a
                 href={packet.pdfUrl}
-                className="inline-flex min-h-11 items-center rounded-md bg-plum px-5 font-display text-xl text-white hover:-rotate-2 transition-transform motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+                className={plumButton}
             >
                 Read the full packet (PDF)
             </a>
@@ -59,7 +60,12 @@ export function Flipbook({ packet }: Props) {
                 className="relative"
                 style={{ height: `calc(100svh + ${pages.length * VH_PER_PAGE}vh)` }}
             >
-                <div className="sticky top-0 h-svh flex flex-col items-center justify-start gap-4 pt-2 pb-4">
+                {/* The pinned viewer is 86% of the screen tall and 7% from the
+                    top, so its centre is the middle of the screen. With
+                    justify-center, the page stops scrolling when it reaches
+                    mid-screen, and there's little empty space left below it
+                    when it lets go at the end. */}
+                <div className="sticky top-[7svh] h-[86svh] flex flex-col items-center justify-center gap-4">
                     <img
                         src={page.src}
                         alt={page.alt}

@@ -1,4 +1,16 @@
-import type { WritingPacket } from "./types";
+import type { CaptionedImage, WritingPacket } from "./types";
+
+// The photo at the top of the Writing page.
+export const writingPhoto: CaptionedImage = {
+    image: {
+        src: "/photos/writing-ttsnl.webp",
+        alt: "Seen from above: Lily, in a checked shirt and glasses, writes jokes in black marker on a big sheet of paper, surrounded by TTSNL posters covered in cast signatures.",
+        width: 1600,
+        height: 1014,
+    },
+    caption:
+        "Lily acted as head writer for TTSNL, The Theatre School’s premiere SNL-style sketch show, in Spring 2026",
+};
 
 // One line per page: which piece it's from and what happens on it.
 const pageDescriptions = [

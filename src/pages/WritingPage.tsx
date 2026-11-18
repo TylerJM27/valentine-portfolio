@@ -1,42 +1,62 @@
 import { Flipbook } from "../components/Flipbook";
+import { PageHeading } from "../components/PageHeading";
+import { TapedNote } from "../components/TapedNote";
 import { Exclamation } from "../components/doodles/Exclamation";
 import { Spiral } from "../components/doodles/Spiral";
 import { SquareSpiral } from "../components/doodles/SquareSpiral";
 import { Star } from "../components/doodles/Star";
-import { writingPacket } from "../data/writing";
+import { writingPacket, writingPhoto } from "../data/writing";
 
 // Side doodles only show from lg up, either side of the flipbook page.
 const sideDoodle = "hidden lg:block absolute motion-reduce:animate-none";
 
 export function WritingPage() {
     return (
-        <div className="relative py-8 pb-24 space-y-6">
+        <div className="relative pt-8 space-y-10">
             <title>Writing · Lily Valentine</title>
 
-            <Exclamation className={`${sideDoodle} top-10 right-8 w-20 text-lime rotate-12 animate-float`} />
-            <SquareSpiral className={`${sideDoodle} top-[22%] left-6 size-16 text-orange -rotate-6 animate-float [animation-delay:-2s]`} />
-            <Spiral className={`${sideDoodle} top-[34%] right-10 size-24 text-orange animate-spin-slow`} />
-            <Star className={`${sideDoodle} top-[50%] left-12 size-14 text-lime -rotate-12 animate-float [animation-delay:-4s]`} />
-            <Star className={`${sideDoodle} top-[63%] right-20 size-10 text-lime rotate-6 animate-float [animation-delay:-1s]`} />
+            <SquareSpiral className={`${sideDoodle} top-[30%] left-6 size-16 text-orange -rotate-6 animate-float [animation-delay:-2s]`} />
+            <Spiral className={`${sideDoodle} top-[40%] right-10 size-24 text-orange animate-spin-slow`} />
+            <Star className={`${sideDoodle} top-[52%] left-12 size-14 text-lime -rotate-12 animate-float [animation-delay:-4s]`} />
+            <Star className={`${sideDoodle} top-[64%] right-20 size-10 text-lime rotate-6 animate-float [animation-delay:-1s]`} />
             <Spiral className={`${sideDoodle} top-[76%] left-8 size-16 text-lime animate-spin-slow [animation-direction:reverse]`} />
             <SquareSpiral className={`${sideDoodle} top-[88%] right-12 size-12 text-orange rotate-12 animate-float [animation-delay:-3s]`} />
 
-            <div className="flex items-center gap-3">
-                <h1 className="font-display text-white text-5xl">Writing</h1>
-                <Exclamation className="w-6 text-lime rotate-12 animate-float motion-reduce:animate-none" />
-                <SquareSpiral className="size-7 text-orange -rotate-6 animate-spin-slow motion-reduce:animate-none" />
-            </div>
-            <div className="max-w-prose text-lg leading-relaxed space-y-3">
-                <p>
-                    A packet of short comedic scripts and one song: Halloween, Pants
-                    to Prom, Gay And Boring, Wrigleyville Speed Dating, and Shotta
-                    Pink Whitney.
-                </p>
-                <p>
+            {/* Phones and tablets: heading, photo, then the hint right above
+                the flipbook it explains.
+                lg and up: heading and hint on the left, the photo on the
+                right spanning both rows. */}
+            <div className="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)] xl:grid-cols-[20rem_minmax(0,1fr)] lg:grid-rows-[auto_1fr] lg:gap-x-14">
+                <div className="lg:col-start-1 lg:row-start-1">
+                    <PageHeading>Writing</PageHeading>
+                </div>
+
+                <figure className="relative mx-auto w-full max-w-md lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:max-w-2xl lg:mr-0">
+                    <img
+                        src={writingPhoto.image.src}
+                        alt={writingPhoto.image.alt}
+                        width={writingPhoto.image.width}
+                        height={writingPhoto.image.height}
+                        className="w-full h-auto rounded-md border-8 border-white shadow-xl rotate-2"
+                    />
+                    {/* The caption overlaps the bottom of the photo a little,
+                        like a note taped onto it. */}
+                    <TapedNote
+                        as="figcaption"
+                        tilt="left"
+                        className="-mt-4 mx-4 text-sm font-bold leading-snug sm:mx-8"
+                    >
+                        {writingPhoto.caption}
+                    </TapedNote>
+                    <Exclamation className="hidden lg:block absolute top-1/3 -left-12 w-10 text-lime -rotate-12 animate-float motion-reduce:animate-none" />
+                </figure>
+
+                <p className="max-w-prose text-lg leading-relaxed lg:col-start-1 lg:row-start-2">
                     Scroll down to flip through the pages, or use the Prev and Next
                     buttons. The full packet is also available as a PDF.
                 </p>
             </div>
+
             <Flipbook packet={writingPacket} />
         </div>
     );

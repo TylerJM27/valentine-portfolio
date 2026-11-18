@@ -5,6 +5,12 @@ export type ImageAsset = {
     height: number;
 };
 
+// A single photo shown with a caption (Resume page, Writing page).
+export type CaptionedImage = {
+    image: ImageAsset;
+    caption: string;
+};
+
 export type PerformancePhoto = {
     id: string;
     image: ImageAsset;
@@ -77,6 +83,10 @@ export type ResumeSection = {
 
 export type ResumeData = {
     pdfUrl: string;
+    // The PDF's page as an image, shown on the page like a sheet of paper.
+    pageImage: ImageAsset;
+    // The photo beside the resume, with its caption.
+    photo?: CaptionedImage;
     headline?: string;
     summary?: string;
     details?: string[];

@@ -1,47 +1,119 @@
-import type { PerformancePhoto, LoopingVideoSource } from "./types";
+import type { PerformancePhoto, YouTubeVideo } from "./types";
 
-export const performanceVideo: LoopingVideoSource = {
-    src: "/placeholders/performance-placeholder-clip.mp4",
-    type: "video/mp4",
-    poster: {
-        src: "/placeholders/placeholder-image-1.webp",
-        alt: "Lily Peering Down From Above",
-        width: 1600,
-        height: 1280,
+// The videos in the middle of the page. Add more entries to show more.
+export const performanceVideos: YouTubeVideo[] = [
+    {
+        id: "video-bullying-works",
+        youtubeId: "l4B6g3J9ZYo",
+        title: "Bullying Works",
+        // Placeholder. The \n is a line break (shown thanks to whitespace-pre-line).
+        description:
+            "Annoyance Theatre and Bar, Chicago, Illinois\nPart of The Theatre School at DePaul University’s MessFest Comedy Festival",
     },
-    label: "Cool People Doing Things",
-};
+];
 
+// The photos in the two moving rows. The first half goes in the top row,
+// the rest in the bottom row. Captions come from Lily's file names.
 export const performancePhotos: PerformancePhoto[] = [
     {
-        id: "performance-1",
+        id: "photo-tuna-queen",
         image: {
-            src: "/placeholders/placeholder-image-1.webp",
-            alt: "Lily, in oversized red glasses and a black leather jacket, leans over a black railing and bares her teeth under a stage light, with a brick wall behind her.",
-            width: 1600,
-            height: 1280,
+            src: "/performance/tuna-queen.webp",
+            alt: "Lily in drag as Tuna Queen: silver-blue face paint with fish-scale texture, a long lavender wig and a red-and-black feather boa, mouth wide open, one hand on their chest.",
+            width: 960,
+            height: 1200,
         },
-        caption: "Lily Peering Down From Above",
+        caption: "Lily performing as Tuna Queen, their drag persona",
     },
     {
-        id: "performance-2",
+        id: "photo-bush-bows",
         image: {
-            src: "/placeholders/placeholder-image-2.webp",
-            alt: "Three performers sit at a long desk beneath a large projected photo. Lily, on the right in a green blazer and red glasses, looks toward the audience with a sly expression while the performer in the center reads from a stack of papers.",
-            width: 1600,
-            height: 1067,
+            src: "/performance/bush-bows.webp",
+            alt: "Seven performers in a line on a white-walled stage, arms flung out in a big finale pose and laughing, each with a tuft of fur on their hip. Lily is second from the left in red glasses.",
+            width: 1200,
+            height: 960,
         },
-        caption: "The Council of Three",
+        caption: "BUSH, January 2026",
     },
     {
-        id: "performance-3",
+        id: "photo-best-policy",
         image: {
-            src: "/placeholders/placeholder-image-3.webp",
-            alt: "Lily stands alone in a spotlight against a black background, wearing an oversized red suit and a lavender tie, hands raised mid-sentence as she speaks toward a music stand.",
+            src: "/performance/best-policy.webp",
+            alt: "Lily alone in a spotlight in an oversized coral suit and red glasses, arms open and grinning out at the audience.",
+            width: 675,
+            height: 1200,
+        },
+        caption: "The Best Policy, January 2026",
+    },
+    {
+        id: "photo-ttsnl-weekend-update",
+        image: {
+            src: "/performance/ttsnl-weekend-update.webp",
+            alt: "Three performers at a news desk under a big projected photo. Lily sits on the right in a green blazer and red glasses, hands folded, while the anchor in the middle reads from his papers.",
+            width: 1200,
+            height: 800,
+        },
+        caption: "TTSNL Weekend Update, pictured with Tanner Devore and Peyton Baisden",
+    },
+    {
+        id: "photo-night-of-unexpected-passion",
+        image: {
+            src: "/performance/night-of-unexpected-passion.webp",
+            alt: "Seen from below against a pale sky: Lily in a pink blazer and red glasses laughs over a railing, tugging the tie of a man in a white tuxedo jacket.",
             width: 900,
-            height: 1600,
+            height: 1200,
         },
-        caption: "Welcome to my Ted Talk",
+        caption: "A Night of Unexpected Passion feat. Henry Hipp",
+    },
+    {
+        id: "photo-this-blows",
+        image: {
+            src: "/performance/this-blows.webp",
+            alt: "A row of performers under purple and blue light, leaning forward mid-song on a checkered stage floor. Lily is second from the left in glasses.",
+            width: 1200,
+            height: 687,
+        },
+        caption: "This Blows! January 2026",
+    },
+    {
+        id: "photo-triple-threat",
+        image: {
+            src: "/performance/triple-threat.webp",
+            alt: "Lily in red glasses, a rust sweater and jeans, pointing sideways mid-song with their mouth open, as other improvisers dance behind them.",
+            width: 960,
+            height: 1200,
+        },
+        caption: "Triple Threat Musical Improv, January 2026",
+    },
+    {
+        id: "photo-bush-sketch",
+        image: {
+            src: "/performance/bush-sketch.webp",
+            alt: "Four performers in a frantic sketch moment: one lunges forward with a shocked face while Lily, in red glasses, throws their head back laughing in a chair.",
+            width: 1200,
+            height: 960,
+        },
+        caption: "BUSH, January 2026",
+    },
+    {
+        id: "photo-being-creative",
+        image: {
+            src: "/performance/being-creative.webp",
+            alt: "Lily in full zombie makeup at night: stitched-up bald cap, bloodshot eyes, fake fangs and a patched sweater covered in red stitches.",
+            width: 900,
+            height: 1200,
+        },
+        caption: "Lily being creative",
+    },
+    {
+        id: "photo-tuna-queen-friends",
+        image: {
+            src: "/performance/tuna-queen-friends.webp",
+            alt: "Three drag performers against a blue wall, arms outstretched in a dramatic pose: one in a red dress, Tuna Queen in the middle in a black bra and blonde wig, and one in a pink corset and pink wig.",
+            width: 1200,
+            height: 923,
+        },
+        caption: "Tuna Queen with her friends, Our Lady and Blondeshell",
     },
 ];
 

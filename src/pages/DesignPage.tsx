@@ -14,7 +14,7 @@ export function DesignPage() {
     const reduceMotion = usePrefersReducedMotion();
 
     return (
-        <div className="py-8 pb-16 space-y-6">
+        <div className="py-8 space-y-6">
             <title>Design · Lily Valentine</title>
 
             <PageHeading

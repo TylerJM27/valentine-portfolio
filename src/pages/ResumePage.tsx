@@ -1,99 +1,186 @@
 import { ContactForm } from "../components/ContactForm";
+import { PageHeading } from "../components/PageHeading";
+import { TapedNote } from "../components/TapedNote";
 import { Exclamation } from "../components/doodles/Exclamation";
 import { Spiral } from "../components/doodles/Spiral";
 import { SquareSpiral } from "../components/doodles/SquareSpiral";
 import { Star } from "../components/doodles/Star";
 import { resume } from "../data/resume";
+import { dashedButton, plumButton } from "../lib/buttonStyles";
 
 const sectionHeadingStyles = "font-display text-white text-3xl";
 
-// Side doodles only show from lg up, where they sit in the margins.
-const sideDoodle = "hidden lg:block absolute motion-reduce:animate-none";
-
 export function ResumePage() {
+    const { photo } = resume;
+
     return (
-        <div className="relative max-w-3xl mx-auto py-8 space-y-10">
+        <div className="relative py-8 space-y-12">
             <title>Resume · Lily Valentine</title>
 
-            <Star className={`${sideDoodle} top-28 -left-28 size-16 text-lime rotate-12 animate-float`} />
-            <Spiral className={`${sideDoodle} top-[22%] -right-28 size-20 text-orange animate-spin-slow`} />
-            <SquareSpiral className={`${sideDoodle} top-[42%] -left-24 size-12 text-orange -rotate-12 animate-float [animation-delay:-2s]`} />
-            <Exclamation className={`${sideDoodle} top-[60%] -right-24 w-12 text-lime rotate-12 animate-float [animation-delay:-4s]`} />
-            <Spiral className={`${sideDoodle} top-[78%] -left-24 size-10 text-lime animate-spin-slow [animation-direction:reverse]`} />
-            <Star className={`${sideDoodle} bottom-16 -right-24 size-10 text-orange -rotate-12 animate-float [animation-delay:-3s]`} />
+            <PageHeading
+                actions={
+                    <a
+                        href={resume.pdfUrl}
+                        download
+                        className={plumButton}
+                    >
+                        Download resume (PDF)
+                    </a>
+                }
+            >
+                Resume
+            </PageHeading>
 
-            <header className="space-y-4">
-                <div className="flex items-center gap-3">
-                    <h1 className="font-display text-white text-5xl">Resume</h1>
-                    <Star className="size-9 text-lime rotate-12 animate-float motion-reduce:animate-none" />
-                    <Spiral className="size-7 text-orange animate-spin-slow motion-reduce:animate-none" />
-                </div>
-                {resume.headline && (
-                    <p className="text-xl font-bold">{resume.headline}</p>
-                )}
-                {resume.summary && (
-                    <p className="text-lg leading-relaxed max-w-prose">
-                        {resume.summary}
-                    </p>
-                )}
-                {resume.details && (
-                    <ul className="flex flex-wrap gap-x-6 gap-y-1">
-                        {resume.details.map((detail) => (
-                            <li key={detail}>{detail}</li>
-                        ))}
-                    </ul>
-                )}
-                <a
-                    href={resume.pdfUrl}
-                    download
-                    className="inline-flex min-h-11 items-center rounded-md bg-plum px-5 font-display text-xl text-white hover:-rotate-2 transition-transform motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
-                >
-                    Download resume (PDF)
-                </a>
-            </header>
+            {/* Phones: document, then the photo below it.
+                md and up: document on the left, the photo in a narrow column
+                on the right that stays in view (sticky) while you scroll. */}
+            <div className="grid gap-12 md:grid-cols-[minmax(0,1fr)_15rem] lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-16 md:items-start">
+                <div className="space-y-8">
+                    {/* The resume as a sheet of paper. An image works on every
+                        phone, where an embedded PDF often doesn't. Clicking it
+                        opens the full PDF in a new tab, so phones can zoom in. */}
+                    <a
+                        href={resume.pdfUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group/paper relative block -rotate-1 hover:rotate-0 hover:scale-[1.02] transition-[scale,rotate] duration-300 ease-out motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4"
+                    >
+                        <img
+                            src={resume.pageImage.src}
+                            alt={resume.pageImage.alt}
+                            width={resume.pageImage.width}
+                            height={resume.pageImage.height}
+                            className="w-full h-auto rounded-sm bg-white shadow-2xl"
+                        />
+                        {/* A visible cue that the paper is clickable (phones
+                            have no hover). Its text is part of the link's name. */}
+                        <span className="absolute bottom-3 right-3 inline-flex min-h-11 items-center gap-1 rounded-full bg-plum px-4 font-bold text-white shadow-lg group-hover/paper:-rotate-3 transition-[rotate] motion-reduce:transition-none">
+                            Open PDF
+                            <span aria-hidden="true">↗</span>
+                            <span className="sr-only">(opens in a new tab)</span>
+                        </span>
+                    </a>
 
-            {resume.sections.map((section) => (
-                <section
-                    key={section.id}
-                    aria-labelledby={`${section.id}-heading`}
-                    className="space-y-3"
-                >
-                    <h2 id={`${section.id}-heading`} className={sectionHeadingStyles}>
-                        {section.heading}
-                    </h2>
-                    <ul className="space-y-3 sm:space-y-2">
-                        {section.entries.map((entry) => (
-                            <li
-                                key={entry.id}
-                                className="sm:grid sm:grid-cols-[2fr_1.5fr_2fr_7rem] sm:gap-x-4"
+                    {/* The same resume as real text, for screen readers,
+                        search engines, and anyone who wants to copy a line. */}
+                    <details className="group">
+                        <summary
+                            className={`${dashedButton} cursor-pointer list-none [&::-webkit-details-marker]:hidden`}
+                        >
+                            <span
+                                aria-hidden="true"
+                                className="inline-block transition-transform group-open:rotate-45 motion-reduce:transition-none"
                             >
-                                <span
-                                    className={`block font-bold ${entry.role || entry.organization || entry.year ? "" : "sm:col-span-4 sm:font-normal"}`}
-                                >
-                                    {entry.title}
-                                </span>
-                                {entry.role && (
-                                    <span className="block sm:col-start-2">{entry.role}</span>
-                                )}
-                                {entry.organization && (
-                                    <span className="block sm:col-start-3">
-                                        {entry.organization}
-                                    </span>
-                                )}
-                                {entry.year && (
-                                    <span className="block sm:col-start-4">{entry.year}</span>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
-                </section>
-            ))}
+                                +
+                            </span>
+                            Read as text
+                        </summary>
 
-            <section id="contact" aria-labelledby="contact-heading" className="space-y-4">
+                        <div className="mt-6 space-y-8">
+                            <div className="space-y-2">
+                                <p className="font-display text-white text-3xl">Lily Valentine</p>
+                                {resume.headline && (
+                                    <p className="text-xl font-bold">{resume.headline}</p>
+                                )}
+                                {resume.details && (
+                                    <ul className="flex flex-wrap gap-x-6 gap-y-1">
+                                        {resume.details.map((detail) => (
+                                            <li key={detail}>{detail}</li>
+                                        ))}
+                                    </ul>
+                                )}
+                                {resume.summary && (
+                                    <p className="max-w-prose text-lg italic leading-relaxed">
+                                        {resume.summary}
+                                    </p>
+                                )}
+                            </div>
+
+                            {resume.sections.map((section) => (
+                                <section
+                                    key={section.id}
+                                    aria-labelledby={`${section.id}-heading`}
+                                    className="space-y-3"
+                                >
+                                    <h2
+                                        id={`${section.id}-heading`}
+                                        className={sectionHeadingStyles}
+                                    >
+                                        {section.heading}
+                                    </h2>
+                                    <ul className="space-y-3 sm:space-y-2">
+                                        {section.entries.map((entry) => (
+                                            <li
+                                                key={entry.id}
+                                                className="sm:grid sm:grid-cols-[2fr_1.5fr_2fr_7rem] sm:gap-x-4"
+                                            >
+                                                <span
+                                                    className={`block font-bold ${entry.role || entry.organization || entry.year ? "" : "sm:col-span-4 sm:font-normal"}`}
+                                                >
+                                                    {entry.title}
+                                                </span>
+                                                {entry.role && (
+                                                    <span className="block sm:col-start-2">
+                                                        {entry.role}
+                                                    </span>
+                                                )}
+                                                {entry.organization && (
+                                                    <span className="block sm:col-start-3">
+                                                        {entry.organization}
+                                                    </span>
+                                                )}
+                                                {entry.year && (
+                                                    <span className="block sm:col-start-4">
+                                                        {entry.year}
+                                                    </span>
+                                                )}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </section>
+                            ))}
+                        </div>
+                    </details>
+                </div>
+
+                {photo && (
+                    <figure className="mx-auto w-full max-w-xs md:sticky md:top-8 md:max-w-none">
+                        <div className="relative">
+                            {/* A plum circle behind the cut-out photo, so the
+                                coral suit doesn't blend into the pink. */}
+                            <div
+                                aria-hidden="true"
+                                className="absolute inset-x-[6%] top-[4%] aspect-square rounded-full bg-plum"
+                            />
+                            <img
+                                src={photo.image.src}
+                                alt={photo.image.alt}
+                                width={photo.image.width}
+                                height={photo.image.height}
+                                loading="lazy"
+                                className="relative w-full aspect-[30/34] object-cover object-bottom drop-shadow-xl"
+                            />
+                            <Star className="absolute -top-2 right-0 size-10 text-lime rotate-12 animate-wiggle motion-reduce:animate-none" />
+                            <Spiral className="absolute top-1/3 -left-4 size-9 text-orange animate-spin-slow motion-reduce:animate-none" />
+                        </div>
+                        <TapedNote as="figcaption" className="mt-6 leading-snug">
+                            {photo.caption}
+                        </TapedNote>
+                    </figure>
+                )}
+            </div>
+
+            <section
+                id="contact"
+                aria-labelledby="contact-heading"
+                className="relative max-w-3xl space-y-4 scroll-mt-8"
+            >
                 <h2 id="contact-heading" className={sectionHeadingStyles}>
                     Get in touch
                 </h2>
                 <ContactForm />
+                <Exclamation className="hidden lg:block absolute top-4 -right-40 w-16 text-lime rotate-12 animate-float motion-reduce:animate-none" />
+                <SquareSpiral className="hidden lg:block absolute bottom-10 -right-64 size-14 text-orange -rotate-12 animate-wiggle motion-reduce:animate-none" />
             </section>
         </div>
     );
