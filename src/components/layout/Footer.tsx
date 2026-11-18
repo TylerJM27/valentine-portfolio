@@ -30,7 +30,7 @@ export function Footer() {
                         <Star className="size-6 text-lime animate-wiggle motion-reduce:animate-none" />
                     </p>
                     <p className="text-white/85">
-                        Writer · Performer · Comedian · Glue Gun Owner
+                        {profile.roles.join(" · ")}
                     </p>
                     <SocialLinks links={profile.socialLinks} />
                 </div>

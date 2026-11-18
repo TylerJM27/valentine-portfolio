@@ -52,7 +52,11 @@ export type SocialLink = {
 export type Profile = {
     name: string;
     headshots: { silly: ImageAsset; serious: ImageAsset };
+    // The words that scroll beside the headshot ("Writer", "Performer", ...).
+    roles: string[];
     bio: string[];
+    statement: string;
+    statementPhoto: ImageAsset;
     socialLinks: SocialLink[];
     cartoon?: ImageAsset;
 };

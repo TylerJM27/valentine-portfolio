@@ -5,7 +5,7 @@ export const profile: Profile = {
     headshots: {
         silly: {
             src: "/placeholders/silly-headshot.webp",
-            alt: "Lily Valentine in a long strawberry-blond wig, blue fish-scale face makeup, and blue lipstick sits straddling a backward chair, gripping its back and gazing upward with their mouth open. She wears a pale blue suit jacket and a pale blue tie painted with the word “TUNA” and red splatters, under lavender stage light, with audience silhouettes in the foreground.",
+            alt: "Lily Valentine in a long strawberry-blond wig, blue fish-scale face makeup, and blue lipstick sits straddling a backward chair, gripping its back and gazing upward with their mouth open. They wear a pale blue suit jacket and a pale blue tie painted with the word “TUNA” and red splatters, under lavender stage light, with audience silhouettes in the foreground.",
             width: 1200,
             height: 960,
         },
@@ -16,11 +16,19 @@ export const profile: Profile = {
             height: 960,
         },
     },
+    roles: ["Writer", "Performer", "Comedian", "Glue Gun Owner"],
     bio: [
         "Lily Valentine is a Portland-raised, Chicago-based comedian, Writer, Performer, and Glue Gun Owner. They are a 2027 graduate of the Comedy Arts program at The Theatre School at DePaul University, and have spent the last four years sharpening their skills in sketch, improv, solo performance, and behind-the-scenes production. Coming from a musical theatre background, they strive to incorporate elements of musicality, dance, and marvel wherever they can.",
         "Lily is the co-creator of BUSH, an all lesbian sketch group that packed the house for a run on The Annoyance Theater Mainstage. They acted as the head writer, performer, and director of TTSNL, an SNL-style live sketch show that had a four-week sold-out run on the Theatre School Watts Stage. They are also passionate about solo work and have self-produced two solo shows, The Best Policy, a show about the importance of gossip, which ran for a four-week run on The Annoyance Cabaret stage in Spring 2026, and Unicorn, which debuted in January 2027 at MessFest, an all-student-run comedy festival at The Annoyance Theater. In 2025, Lily served as the assistant artistic director of MessFest, in which they oversaw the aesthetic direction, execution, and fluidity of the four-day festival.",
-        "Lily creates comedy for those who believe they don’t need it. They push for radical honesty from both themselves and from their audience. They are mean, embarrassing, and truthful. They find the funny in the absurd, in the uncomfortable, and in the mundane. They are most inspired by other people and the limits within which we can push ourselves as human beings. They believe we, as people, can be a spectacle all on our own.",
     ],
+    statement:
+        "Lily creates comedy for those who believe they don’t need it. They push for radical honesty from both themselves and from their audience. They are mean, embarrassing, and truthful. They find the funny in the absurd, in the uncomfortable, and in the mundane. They are most inspired by other people and the limits within which we can push ourselves as human beings. They believe we, as people, can be a spectacle all on our own.",
+    statementPhoto: {
+        src: "/photos/statement.webp",
+        alt: "Lily, in big red glasses and a black leather jacket, leans over a ledge on stage under a spotlight, gritting their teeth and clawing at the edge with blue-painted nails, against a brick wall.",
+        width: 1600,
+        height: 1280,
+    },
     socialLinks: [
         {
             platform: "instagram",

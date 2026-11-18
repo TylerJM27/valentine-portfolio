@@ -3,29 +3,24 @@ import { ProjectPoster } from "../components/ProjectPoster";
 import { Spiral } from "../components/doodles/Spiral";
 import { SquareSpiral } from "../components/doodles/SquareSpiral";
 import { currentProjects } from "../data/currentProjects";
+import { posterMotion } from "../lib/posterMotion";
 
 export function RightNowPage() {
     return (
         <div className="relative py-8 space-y-8">
-            <title>Right Now · Lily Valentine</title>
+            <title>Right Now Â· Lily Valentine</title>
 
             <SquareSpiral className="hidden lg:block absolute top-6 right-4 size-14 text-orange rotate-12 animate-float motion-reduce:animate-none" />
             <Spiral className="hidden lg:block absolute top-24 right-28 size-10 text-lime animate-spin-slow motion-reduce:animate-none" />
 
             <div className="space-y-3">
                 <PageHeading>Right Now</PageHeading>
-                <p className="max-w-prose text-lg">Catch Lily live. Here’s what’s coming up.</p>
+                <p className="max-w-prose text-lg">Catch Lily live. Hereâ€™s whatâ€™s coming up.</p>
             </div>
 
             <ul className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
                 {currentProjects.map((project, index) => {
-                    // Posters rest with a slight alternating tilt, then grow and
-                    // twist the other way on hover (or keyboard focus).
-                    const tilt =
-                        index % 2
-                            ? "rotate-1 hover:-rotate-2 focus-visible:-rotate-2"
-                            : "-rotate-1 hover:rotate-2 focus-visible:rotate-2";
-                    const posterMotion = `relative block ${tilt} hover:z-10 hover:scale-105 focus-visible:z-10 focus-visible:scale-105 transition-[scale,rotate] duration-300 ease-out motion-reduce:transition-none`;
+                    const motion = posterMotion(index);
                     return (
                         <li key={project.id}>
                             <article
@@ -38,12 +33,12 @@ export function RightNowPage() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={`${project.title} tickets (opens in a new tab)`}
-                                        className={`${posterMotion} focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4`}
+                                        className={`${motion} focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4`}
                                     >
                                         <ProjectPoster project={project} eager />
                                     </a>
                                 ) : (
-                                    <div className={posterMotion}>
+                                    <div className={motion}>
                                         <ProjectPoster project={project} eager />
                                     </div>
                                 )}
@@ -56,7 +51,7 @@ export function RightNowPage() {
                                         {project.title}
                                     </h2>
                                     <p className="font-bold text-lg">
-                                        {project.date} · {project.time}
+                                        {project.date} Â· {project.time}
                                         <br />
                                         {project.venue}
                                     </p>

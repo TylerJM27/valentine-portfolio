@@ -1,57 +1,136 @@
 import { Link } from "react-router";
+import { ProjectPoster } from "../components/ProjectPoster";
+import { StarburstPhoto } from "../components/StarburstPhoto";
+import { WavyWords } from "../components/WavyWords";
 import { Exclamation } from "../components/doodles/Exclamation";
 import { Spiral } from "../components/doodles/Spiral";
 import { SquareSpiral } from "../components/doodles/SquareSpiral";
-import { SocialLinks } from "../components/SocialLinks";
-import { StarburstPhoto } from "../components/StarburstPhoto";
+import { Star } from "../components/doodles/Star";
+import { WavyLine } from "../components/doodles/WavyLine";
+import { currentProjects } from "../data/currentProjects";
 import { profile } from "../data/profile";
+import { posterMotion } from "../lib/posterMotion";
+
+const sectionHeading = "font-display text-white text-4xl sm:text-5xl leading-tight pb-1";
+const buttonLink =
+    "inline-flex min-h-11 items-center rounded-md bg-plum px-5 font-display text-xl text-white hover:-rotate-2 transition-transform motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2";
 
 export function HomePage() {
     return (
-        <div className="relative py-8 lg:pr-40 lg:pb-24">
+        <div className="relative py-8 space-y-16 md:space-y-20">
             <title>{profile.name}</title>
+            {/* The site name in the header is a link, so the page's h1 is
+                hidden text that also gives screen readers the scrolling roles. */}
+            <h1 className="sr-only">
+                {profile.name}: {profile.roles.join(", ")}
+            </h1>
 
-            <div className="grid gap-8 md:grid-cols-2 md:items-center">
-                <StarburstPhoto
-                    silly={profile.headshots.silly}
-                    serious={profile.headshots.serious}
+            {/* Hero */}
+            {/* Phones: photo, then the ribbons below it.
+                md and up: the ribbons become a full-width band across the
+                screen (the full-bleed trick from the marquees), centered on
+                the hero, and the photo sits on top of them (z-10). */}
+            <section aria-label="Introduction" className="relative">
+                <div className="relative z-10 md:w-1/2">
+                    <StarburstPhoto
+                        silly={profile.headshots.silly}
+                        serious={profile.headshots.serious}
+                    />
+                </div>
+                <div className="mt-6 md:mt-0 md:absolute md:top-1/2 md:-translate-y-1/2 md:left-1/2 md:w-screen md:-ml-[50vw]">
+                    <WavyWords words={profile.roles} />
+                </div>
+                <Spiral className="hidden lg:block absolute -top-6 right-12 size-12 text-lime animate-spin-slow motion-reduce:animate-none" />
+                <Star className="hidden lg:block absolute -bottom-4 right-1/4 size-10 text-orange animate-wiggle motion-reduce:animate-none" />
+            </section>
+
+            {/* Artistic statement */}
+            <section
+                aria-labelledby="statement-heading"
+                className="relative grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-center"
+            >
+                <div className="space-y-5">
+                    <h2 id="statement-heading" className={sectionHeading}>
+                        Artistic Statement
+                    </h2>
+                    <p className="max-w-prose text-xl leading-relaxed">{profile.statement}</p>
+                </div>
+                <img
+                    src={profile.statementPhoto.src}
+                    alt={profile.statementPhoto.alt}
+                    width={profile.statementPhoto.width}
+                    height={profile.statementPhoto.height}
+                    loading="lazy"
+                    className="w-full aspect-video object-cover object-top rounded-md border-8 border-white shadow-xl rotate-2"
                 />
+                <SquareSpiral className="hidden md:block absolute -bottom-12 right-1/3 size-14 text-orange animate-wiggle motion-reduce:animate-none" />
+                <Spiral className="hidden md:block absolute -top-10 right-6 size-10 text-lime animate-spin-slow [animation-direction:reverse] motion-reduce:animate-none" />
+            </section>
 
-                <div className="space-y-6">
-                    <h1 className="font-display text-white text-5xl underline decoration-white underline-offset-8">
+            <WavyLine className="w-full h-3 text-white" />
+
+            {/* About */}
+            <section aria-labelledby="about-heading" className="relative lg:pr-44">
+                <div className="space-y-5">
+                    <h2 id="about-heading" className={sectionHeading}>
                         About
-                    </h1>
-                    <div className="space-y-4 text-lg leading-relaxed max-w-prose">
+                    </h2>
+                    <div className="space-y-4 text-lg leading-relaxed">
                         {profile.bio.map((paragraph) => (
                             <p key={paragraph}>{paragraph}</p>
                         ))}
                     </div>
-                    <Link
-                        to="/resume"
-                        className="inline-flex min-h-11 items-center rounded-md bg-plum px-5 font-display text-xl text-white hover:-rotate-2 transition-transform motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
-                    >
+                    <Link to="/resume" className={buttonLink}>
                         See my resume
                     </Link>
-                    <SocialLinks links={profile.socialLinks} />
                 </div>
-            </div>
+                <Exclamation className="hidden lg:block absolute right-12 top-8 w-32 text-lime rotate-12 animate-float motion-reduce:animate-none" />
+                <SquareSpiral className="hidden lg:block absolute right-4 bottom-24 size-16 text-orange -rotate-6 animate-wiggle [animation-delay:-1s] motion-reduce:animate-none" />
+                {profile.cartoon && (
+                    <img
+                        src={profile.cartoon.src}
+                        alt={profile.cartoon.alt}
+                        width={profile.cartoon.width}
+                        height={profile.cartoon.height}
+                        loading="lazy"
+                        className="mt-8 ml-auto w-40 lg:absolute lg:right-0 lg:bottom-0 lg:mt-0"
+                    />
+                )}
+            </section>
 
-            {profile.cartoon && (
-                <img
-                    src={profile.cartoon.src}
-                    alt={profile.cartoon.alt}
-                    width={profile.cartoon.width}
-                    height={profile.cartoon.height}
-                    loading="lazy"
-                    className="mt-8 ml-auto w-40 lg:absolute lg:right-0 lg:bottom-0 lg:mt-0"
-                />
-            )}
+            <WavyLine className="w-full h-3 text-white" />
 
-            <Exclamation className="hidden lg:block absolute right-0 top-1/4 w-36 text-lime" />
-            <Spiral className="hidden lg:block absolute bottom-4 left-0 size-20 text-lime" />
-            <Spiral className="hidden lg:block absolute bottom-6 left-[44%] size-12 text-lime" />
-            <SquareSpiral className="hidden lg:block absolute bottom-4 left-1/4 size-16 text-orange" />
-            <SquareSpiral className="hidden lg:block absolute bottom-6 right-1/4 size-14 text-orange" />
+            {/* Right Now preview */}
+            <section aria-labelledby="right-now-heading" className="space-y-8">
+                <div className="flex flex-wrap items-end justify-between gap-4">
+                    <h2 id="right-now-heading" className={sectionHeading}>
+                        Right Now
+                    </h2>
+                    <Link to="/right-now" className={buttonLink}>
+                        See all shows
+                    </Link>
+                </div>
+                <ul className="grid gap-10 sm:grid-cols-3">
+                    {currentProjects.map((project, index) => (
+                        <li key={project.id} className="mx-auto w-full max-w-72 sm:max-w-none">
+                            <Link
+                                to="/right-now"
+                                className={`${posterMotion(index)} space-y-3 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4`}
+                            >
+                                <ProjectPoster project={project} />
+                                <span className="block">
+                                    <span className="block font-display text-white text-2xl">
+                                        {project.title}
+                                    </span>
+                                    <span className="block font-bold">
+                                        {project.date} · {project.time}
+                                    </span>
+                                </span>
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            </section>
         </div>
     );
 }

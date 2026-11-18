@@ -22,4 +22,15 @@ Every way the finished site differs from the original plan. This is the source f
 - Footer top edge is a filled plum wave (inline SVG above the band), replacing the pink `WavyLine` that blended into the background.
 - `PageHeading` h1 gets `leading-tight pb-2` so the display font's descenders (the "g" in Right Now / Writing) don't touch the next line.
 - Right Now posters grow (`scale-105`) and twist the opposite way from their resting tilt on hover and keyboard focus; the transition is off under reduced motion.
+- `lib/posterMotion.ts`: shared hover grow-and-twist classes for show posters (Right Now page + home preview).
+
+### Home page (rebuilt)
+- Order: hero → Artistic Statement (with photo) → About (bio paragraphs 1–2 + "See my resume") → Right Now preview (3 posters linking to `/right-now`, plus "See all shows").
+- Hero: `StarburstPhoto` + new `WavyWords.tsx`: three ribbons (white, lime, orange with a plum outline) of the roles flowing along wavy SVG paths (`<textPath>`, `startOffset` moved each frame with `requestAnimationFrame` via refs, not state). Alternating directions, pauses on hover, static under reduced motion. No pause button (the user's call; hover + reduced motion only).
+- Hero layout: phones stack photo then ribbons. md and up, the ribbons are a full-bleed band across the whole screen, vertically centered on the hero, with the starburst on top (`z-10`) in the left half. The SVG is a very wide viewBox (3000×360) with `preserveAspectRatio="xMidYMid slice"`, so it scales to its height and crops the sides; each ribbon repeats the words 4 times so there's never a gap.
+- The page `<h1>` is now sr-only ("Lily Valentine: Writer, Performer, Comedian, Glue Gun Owner"); "About" became a plain `<h2>` (no underline), matching "Artistic Statement" and "Right Now". The About text runs wider (no `max-w-prose`), stopping before the doodles on the right.
+- White `WavyLine` dividers between Artistic Statement / About / Right Now (same line as the nav). Section spacing tightened to `space-y-16 md:space-y-20` to suit.
+- Social icons removed from the home page (they're in the footer).
+- All home doodles move (spirals spin, square spirals and star wiggle, exclamation floats).
+- Data: `Profile` gained `roles: string[]`, `statement: string`, `statementPhoto: ImageAsset`; `bio` is now 2 paragraphs (the 3rd became `statement`). The footer tagline reads `profile.roles`.
 - Media added: `public/design/whatchamacallit.webp`, `public/photos/*`, `public/performance/*`, `public/documents/resume-page-1.webp`; the resume PDF was replaced with Lily's new version.
