@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router";
 import { Layout } from "./components/layout/Layout";
 import { DesignPage } from "./pages/DesignPage";
-import { DirectingPage } from "./pages/DirectingPage";
 import { HomePage } from "./pages/HomePage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { PerformancePage } from "./pages/PerformancePage";
 import { ResumePage } from "./pages/ResumePage";
+import { RightNowPage } from "./pages/RightNowPage";
 import { WritingPage } from "./pages/WritingPage";
 
 export const router = createBrowserRouter([
@@ -22,8 +22,8 @@ export const router = createBrowserRouter([
                 element: <DesignPage />,
             },
             {
-                path: "directing",
-                element: <DirectingPage />,
+                path: "right-now",
+                element: <RightNowPage />,
             },
             {
                 path: "performance",

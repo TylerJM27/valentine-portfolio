@@ -4,7 +4,7 @@ export const navItems: NavItem[] = [
     { label: "Resume", to: "/resume" },
     { label: "Performance", to: "/performance" },
     { label: "Writing", to: "/writing" },
-    { label: "Directing", to: "/directing" },
+    { label: "Right Now", to: "/right-now" },
     { label: "Design", to: "/design" },
 ];
 

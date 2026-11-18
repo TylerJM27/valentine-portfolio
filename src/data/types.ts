@@ -79,6 +79,17 @@ export type ResumeData = {
     sections: ResumeSection[];
 };
 
+export type CurrentProject = {
+    id: string;
+    title: string;
+    poster?: ImageAsset;
+    description: string;
+    date: string;
+    time: string;
+    venue: string;
+    href?: string;
+};
+
 export type NavItem = {
     label: string;
     to: string;

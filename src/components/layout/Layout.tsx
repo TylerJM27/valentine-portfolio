@@ -1,6 +1,7 @@
 import { Outlet, ScrollRestoration } from "react-router";
 import { SkipLink } from "./SkipLink";
 import { Header } from "./Header";
+import { Footer } from "./Footer";
 
 export function Layout() {
     return (
@@ -13,6 +14,7 @@ export function Layout() {
                     <Outlet />
                 </main>
             </div>
+            <Footer />
         </div>
     );
 }

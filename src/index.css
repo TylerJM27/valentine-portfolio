@@ -11,6 +11,17 @@
     --animate-float: float 6s ease-in-out infinite;
     --animate-spin-slow: spin 24s linear infinite;
     --animate-marquee: marquee 60s linear infinite;
+    --animate-wiggle: wiggle 3s ease-in-out infinite;
+
+    @keyframes wiggle {
+        0%,
+        100% {
+            transform: rotate(-8deg);
+        }
+        50% {
+            transform: rotate(8deg);
+        }
+    }
 
     @keyframes float {
         0%,

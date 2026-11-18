@@ -26,12 +26,14 @@ A portfolio website for Lily Valentine, an actor, writer, and director who also 
 
 Routes, in the sketch's nav order. Use this order unless I change it.
 
-- `/resume`: link to download the resume, the resume visible on the page, and the contact form at the bottom of the page
-- `/performance`: looping video at the very top of the page (muted, autoplay, loop, playsInline, with a visible pause button), photos with captions below
-- `/writing`: a 20-page writing packet shown as a scroll-driven flipbook. As I scroll over it, it flips through the pages. Needs a non-scroll fallback (link to the full PDF).
-- `/directing`: several YouTube videos. Each loads on click, using `react-lite-youtube-embed`: a thumbnail with a play button, and the real player loads only after the click.
-- `/design`: graphic design pieces, each an image with a description
-- `/` Home: headshot and bio, plus a resume link and social links as SVG icons (see "Visual direction")
+Every page has a shared footer (name, nav, social icons, resume download).
+
+- `/resume`: the resume shown as a document (a page image on a "paper" card, with a "Read as text" fallback from `resume.ts`), a PDF download link, a photo beside it, and the contact form at the bottom
+- `/performance`: click-to-load YouTube videos with descriptions (`react-lite-youtube-embed`), framed by two rows of captioned photos that scroll in opposite directions, with a pause button
+- `/writing`: a 20-page writing packet shown as a scroll-driven flipbook, plus a captioned photo. Needs a non-scroll fallback (link to the full PDF).
+- `/right-now` (replaced `/directing`): current and upcoming shows, each a poster with dates, times, venue and an optional ticket link
+- `/design`: graphic design posters in two full-width rows that scroll in opposite directions, with a pause button
+- `/` Home: starburst headshot with wavy scrolling role words beside it, then the artistic statement with a photo, a short About, and a Right Now preview
 
 ## Visual direction (from the sketch)
 
@@ -53,18 +55,19 @@ Routes, in the sketch's nav order. Use this order unless I change it.
 
 Settle these in plan mode, then move them to "Decided".
 
-1. **Performance video hosting:** deferred. The video doesn't exist yet and its size is unknown. Until then, use a tiny placeholder clip plus a poster in `public/placeholders/`. Once it exists: if it compresses to about 5 MB or less (720p, 10–20 s, MP4, no audio), put it in `public/`. If it's larger, host it on Vercel Blob or Cloudinary. Don't use a YouTube or Vimeo player for the loop. Always include a poster image.
+None right now. (The performance looping video was dropped; Performance uses YouTube embeds instead.)
 
 ## Decided
 
 - **Content data** (video IDs, captions, design pieces, photo lists) lives in typed files in `src/data/`. See Conventions.
-- **Writing packet:** export the 15 pages as images. Scroll position picks which page shows (a tall scroll track with a sticky viewer inside). Include prev/next buttons and a link to the full PDF for keyboard and screen-reader users. Don't make the scroll track so long that the page feels stuck.
+- **Writing packet:** export the 20 pages as images. Scroll position picks which page shows (a tall scroll track with a sticky viewer inside). Include prev/next buttons and a link to the full PDF for keyboard and screen-reader users. Don't make the scroll track so long that the page feels stuck.
 - **YouTube:** click-to-load using `react-lite-youtube-embed`. Use its privacy-friendly mode (youtube-nocookie.com) and always give each video a title.
 - **Contact form:** Web3Forms (free plan: 250 submissions a month), sent with a plain `fetch`, no package. The form UI sits at the bottom of `/resume`. The submit step lives only in `src/lib/submitContact.ts`, so it can be swapped for my own backend later. The access key goes in the `VITE_WEB3FORMS_KEY` env variable. Spam protection: a honeypot field plus Web3Forms' server-side filter. Add hCaptcha only if spam shows up.
-- **Resume on the page:** HTML rendered from `src/data/resume.ts`, plus a link to download the PDF. Don't embed the PDF.
+- **Resume on the page:** shown as an image of the PDF page (an iframe PDF doesn't render on most phones), with the full text from `src/data/resume.ts` in a "Read as text" toggle, plus a link to download the PDF. Phone and email are shown as on the PDF (Lily's choice).
+- **Motion:** every doodle moves (float, spin or wiggle). Marquees and wavy text have a pause control or pause on hover/focus. Everything stops under `prefers-reduced-motion`.
 - **Routing:** `react-router` v7 with `createBrowserRouter`. The route config lives in `src/routes.tsx`, with a `Layout` route that holds the header and `<Outlet />`. Use `<ScrollRestoration />` and a `*` route for NotFound. The nav list lives in `src/data/navigation.ts`, shared by the desktop nav and the mobile menu. On deploy, `vercel.json` rewrites every path to `index.html`.
 - **Fonts and colors:** see "Visual direction".
-- **Media:** everything is placeholder for now (images, performance video, writing packet pages, resume PDF). Keep placeholders small, in `public/placeholders/`, and reference them only through the files in `src/data/`, so swapping in real media is a data change. Don't block on real assets.
+- **Media:** real media lives in `public/` by type (`photos/`, `performance/`, `design/`, `writing/`, `documents/`), as WebP with recorded width/height, and is referenced only through `src/data/`, so swapping media is a data change. Leftover placeholders stay in `public/placeholders/`.
 
 ## Later (not now)
 
@@ -83,7 +86,7 @@ An admin page where the artist adds her own images and videos. Likely a Node + M
 
 ## Current mode
 
-MODE: BUILD-WITH-ME
+MODE: SHIP
 
 I switch modes by editing the line above. Follow whichever mode is set.
 
@@ -113,6 +116,16 @@ I switch modes by editing the line above. Follow whichever mode is set.
 - Only write code when I say "write this one". Otherwise give hints, point to the relevant concept, and let me try first.
 - When I finish a file, check it for correctness, accessibility, and responsiveness, and tell me what to improve.
 - When you approve a component, do the README update described in "README upkeep".
+
+### SHIP
+
+For finishing the site on a deadline. Claude writes the code; I review it in the browser.
+
+- Before each piece, explain the approach in a few lines, then build it.
+- Work one page or component at a time and stop for my review before the next.
+- Log every change to the original plan (design, data shape, new or removed components) in `docs/site-changes.md`, so the practice branch's notes can be updated to match later.
+- Don't tick README Build progress. Those steps are for me to redo on the practice branch.
+- Every other rule in "How to work with me" still applies (no commits, explain new dependencies first).
 
 ## README upkeep
 

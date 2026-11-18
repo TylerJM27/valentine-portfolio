@@ -7,17 +7,17 @@ export function Header() {
     return (
         <header>
             <div className="flex flex-row content-center justify-center relative py-6 gap-3">
-                <Star className="size-10 md:size-12 lg:size-20 text-white" />
+                <Star className="size-10 md:size-12 lg:size-20 text-white animate-wiggle motion-reduce:animate-none" />
                 <Link
                     to="/"
                     className="font-display text-white uppercase text-4xl md:text-6xl lg:text-7xl"
                 >
                     Lily Valentine
                 </Link>
-                <Star className="size-10 md:size-12 lg:size-20 text-white" />
+                <Star className="size-10 md:size-12 lg:size-20 text-white animate-wiggle [animation-delay:-1.5s] motion-reduce:animate-none" />
             </div>
-            <Spiral className="hidden md:block absolute rotate-25 size-8 md:size-10 lg:size-12 text-lime top-2 left-2 md:left-15 xl:left-25" />
-            <Spiral className="hidden md:block absolute rotate-180 size-8 md:size-10 lg:size-12 text-lime top-16 right-2 md:right-15 xl:right-25" />
+            <Spiral className="hidden md:block absolute size-8 md:size-10 lg:size-12 text-lime top-2 left-2 md:left-15 xl:left-25 animate-spin-slow motion-reduce:animate-none" />
+            <Spiral className="hidden md:block absolute size-8 md:size-10 lg:size-12 text-lime top-16 right-2 md:right-15 xl:right-25 animate-spin-slow [animation-direction:reverse] motion-reduce:animate-none" />
             <Nav />
         </header>
     );
