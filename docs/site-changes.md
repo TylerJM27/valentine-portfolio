@@ -65,6 +65,10 @@ Every way the finished site differs from the original plan. This is the source f
 - `Flipbook`: the pinned viewer changed from `sticky top-0 h-svh justify-start pt-2` to `sticky top-[7svh] h-[86svh] justify-center`, so the packet pins when it reaches the middle of the screen (not the top), and the empty space below it at the end is much smaller. Page `pb-24` removed. Gap from the last page's controls to the footer: ~200px+ → ~135px at desktop.
 - Performance description: "Mess Fest" → "MessFest" (Lily's spelling).
 
+### WavyWords fix (phones)
+- Bug on phones: the lime ribbon didn't move, white and orange jittered, then all froze. Causes: (1) the loop length was re-measured every frame with `getComputedTextLength()` on the curved text, which some mobile browsers (Safari) report as only the letters currently drawn on the path, so it changed every frame (zero for the lime ribbon); (2) `onMouseEnter` fires on a tap with no matching leave on touch screens, so the "hover" pause stuck on.
+- Fix: one copy's length is measured on a hidden straight `<text>` with the same font and size, once, after `document.fonts` finishes loading and on resize. Hover pause uses `onPointerEnter`/`onPointerLeave` and only reacts when `pointerType === "mouse"`. The line ends in a non-breaking space (` `) because SVG drops a trailing ordinary space, which would make the measurement one space short.
+
 ### Not Found page (built)
 - Any unknown address (the `*` route; `vercel.json` sends every path to the app). `PageHeading` "Page not found", a `TapedNote` saying there's no page at the current path (`useLocation().pathname`), a "Back to the home page" button, and "Or try one of these" with a dashed link per `navItems` entry. Lime exclamation + square spiral beside the note (sm and up).
 

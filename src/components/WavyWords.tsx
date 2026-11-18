@@ -50,7 +50,8 @@ function wavePath(y: number, phase: number) {
 export function WavyWords({ words }: Props) {
     const reduceMotion = usePrefersReducedMotion();
     const textPathRefs = useRef<(SVGTextPathElement | null)[]>([]);
-    const firstCopyRefs = useRef<(SVGTSpanElement | null)[]>([]);
+    // A hidden, straight copy of one line of words, used only for measuring.
+    const measureRef = useRef<SVGTextElement | null>(null);
     const hoveredRef = useRef(false);
 
     useEffect(() => {
@@ -60,6 +61,21 @@ export function WavyWords({ words }: Props) {
         let last = performance.now();
         let distance = 0;
 
+        // How long one copy of the words is. Measured on the straight hidden
+        // text, not the curved text: some mobile browsers (Safari) only count
+        // the letters currently drawn on the curve, so measuring the moving
+        // text gives a different answer every frame and the ribbons jitter.
+        // Re-measured once the display font loads and on resize, because
+        // both change the length.
+        let copyLength = 0;
+        const measure = () => {
+            copyLength = measureRef.current?.getComputedTextLength() ?? 0;
+        };
+        measure();
+        document.fonts.ready.then(measure);
+        document.fonts.addEventListener("loadingdone", measure);
+        window.addEventListener("resize", measure);
+
         const tick = (now: number) => {
             // Cap the step so a background tab doesn't make the text jump.
             const seconds = Math.min(now - last, 100) / 1000;
@@ -68,33 +84,46 @@ export function WavyWords({ words }: Props) {
                 distance += seconds * BASE_SPEED;
             }
 
-            RIBBONS.forEach((ribbon, i) => {
-                const textPath = textPathRefs.current[i];
-                const firstCopy = firstCopyRefs.current[i];
-                if (!textPath || !firstCopy) return;
-                // The copies are identical, so sliding by exactly one copy's
-                // length and wrapping back looks seamless.
-                const copyLength = firstCopy.getComputedTextLength();
-                if (!copyLength) return;
-                const moved = (distance * ribbon.speed) % copyLength;
-                const offset = ribbon.direction === "left" ? -moved : moved - copyLength;
-                textPath.setAttribute("startOffset", String(offset));
-            });
+            if (copyLength > 0) {
+                RIBBONS.forEach((ribbon, i) => {
+                    const textPath = textPathRefs.current[i];
+                    if (!textPath) return;
+                    // The copies are identical, so sliding by exactly one
+                    // copy's length and wrapping back looks seamless.
+                    const moved = (distance * ribbon.speed) % copyLength;
+                    const offset = ribbon.direction === "left" ? -moved : moved - copyLength;
+                    textPath.setAttribute("startOffset", String(offset));
+                });
+            }
 
             frame = requestAnimationFrame(tick);
         };
 
         frame = requestAnimationFrame(tick);
-        return () => cancelAnimationFrame(frame);
+        return () => {
+            cancelAnimationFrame(frame);
+            document.fonts.removeEventListener("loadingdone", measure);
+            window.removeEventListener("resize", measure);
+        };
     }, [reduceMotion]);
 
-    const line = words.map((word) => word.toUpperCase()).join(" ✦ ") + " ✦ ";
+    // Ends in a non-breaking space (\u00A0): SVG drops an ordinary trailing
+    // space at the end of a text element, which would make the measured
+    // length one space short and the loop hitch at the seam.
+    const line = words.map((word) => word.toUpperCase()).join(" ✦ ") + " ✦\u00A0";
 
     return (
-        // Hovering pauses the ribbons.
+        // Hovering with a mouse pauses the ribbons. Pointer events tell us
+        // what's pointing: on a phone a tap also fires "enter" but never a
+        // matching "leave", which used to freeze the ribbons for good, so
+        // touch and pen are ignored.
         <div
-            onMouseEnter={() => (hoveredRef.current = true)}
-            onMouseLeave={() => (hoveredRef.current = false)}
+            onPointerEnter={(e) => {
+                if (e.pointerType === "mouse") hoveredRef.current = true;
+            }}
+            onPointerLeave={(e) => {
+                if (e.pointerType === "mouse") hoveredRef.current = false;
+            }}
         >
             <svg
                 viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
@@ -108,6 +137,18 @@ export function WavyWords({ words }: Props) {
                         <path key={i} id={`wavy-words-${i}`} d={wavePath(ribbon.y, ribbon.phase)} />
                     ))}
                 </defs>
+                {/* Never shown: the same words, font and size on a straight
+                    line, so their length can be measured reliably. */}
+                <text
+                    ref={measureRef}
+                    className="font-display"
+                    fontSize={46}
+                    x={0}
+                    y={-200}
+                    visibility="hidden"
+                >
+                    {line}
+                </text>
                 {RIBBONS.map((ribbon, i) => (
                     <text
                         key={i}
@@ -124,18 +165,7 @@ export function WavyWords({ words }: Props) {
                             }}
                         >
                             {Array.from({ length: COPIES }, (_, copy) => (
-                                <tspan
-                                    key={copy}
-                                    ref={
-                                        copy === 0
-                                            ? (el) => {
-                                                  firstCopyRefs.current[i] = el;
-                                              }
-                                            : undefined
-                                    }
-                                >
-                                    {line}
-                                </tspan>
+                                <tspan key={copy}>{line}</tspan>
                             ))}
                         </textPath>
                     </text>
