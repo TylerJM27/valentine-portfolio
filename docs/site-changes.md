@@ -32,6 +32,7 @@ Every way the finished site differs from the original plan. This is the source f
 - The page `<h1>` is now sr-only ("Lily Valentine: Writer, Performer, Comedian, Glue Gun Owner"); "About" became a plain `<h2>` (no underline), matching "Artistic Statement" and "Right Now". The About text runs wider (no `max-w-prose`), stopping before the doodles on the right.
 - White `WavyLine` dividers between Artistic Statement / About / Right Now (same line as the nav). Section spacing tightened to `space-y-16 md:space-y-20` to suit.
 - Social icons removed from the home page (they're in the footer).
+- "Contact me" button (`plumButton`) under the starburst, its left edge lined up with the star's leftmost point: a wrapper copies the star's box (`w-full max-w-md mx-auto`) and the button gets `ml-[calc(1%_-_1.5px)]` (point at 1% of the box, minus half the 3px non-scaling outline). md and up: `-mt-6`, tucked under the star's lower-left side. linking to `/resume#contact` (same target as the footer's "Contact form"; `<ScrollRestoration />` scrolls to the `#contact` section).
 - All home doodles move (spirals spin, square spirals and star wiggle, exclamation floats).
 - Data: `Profile` gained `roles: string[]`, `statement: string`, `statementPhoto: ImageAsset`; `bio` is now 2 paragraphs (the 3rd became `statement`). The footer tagline reads `profile.roles`.
 ### Resume page (rebuilt)

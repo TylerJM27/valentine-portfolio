@@ -35,6 +35,24 @@ export function HomePage() {
                         silly={profile.headshots.silly}
                         serious={profile.headshots.serious}
                     />
+                    {/* Goes to the contact form at the bottom of the Resume
+                        page (#contact is that section's id).
+                        The wrapper copies the star's box (w-full max-w-md
+                        mx-auto, see StarburstPhoto), so the button's left edge
+                        can line up with the star's leftmost point. That point
+                        is at 1% of the box, and the white outline (always
+                        3px wide: non-scaling-stroke) pokes 1.5px further out,
+                        hence ml-[calc(1%-1.5px)]. A margin in % is measured
+                        against the wrapper's width, so it stays lined up at
+                        every size. */}
+                    <div className="mt-6 md:-mt-6 w-full max-w-md mx-auto">
+                        <Link
+                            to="/resume#contact"
+                            className={`${plumButton} ml-[calc(1%_-_1.5px)]`}
+                        >
+                            Contact me
+                        </Link>
+                    </div>
                 </div>
                 <div className="mt-6 md:mt-0 md:absolute md:top-1/2 md:-translate-y-1/2 md:left-1/2 md:w-screen md:-ml-[50vw]">
                     <WavyWords words={profile.roles} />
